@@ -5,7 +5,10 @@
   "author": "aleksandersousa <aleksander-ssousa@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests",
+    "test:watch": "yarn test -- --watch",
+    "test:staged": "jest -- --findRelatedTests",
+    "test:ci": "jest -- --coverage"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
