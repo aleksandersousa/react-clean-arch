@@ -51,6 +51,9 @@
         }
       ],
       "no-console": "off",
+      "no-shadow": "off",
+      "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+      "@typescript-eslint/no-explicit-any": "off",
       "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
     },
     "settings": {
