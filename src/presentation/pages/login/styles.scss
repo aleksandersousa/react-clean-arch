@@ -52,23 +52,6 @@ button {
 
   height: 100vh;
 
-
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-
-    background-color: $primary;
-    border-top: 2.5rem solid $primaryDark;
-
-    padding: 2.5rem 0;
-
-    h1 {
-      color: $white;
-    }
-  }
-
   .form {
     display: flex;
     flex-direction: column;
@@ -126,10 +109,5 @@ button {
       text-transform: uppercase;
       font-size: 1.25rem;
     }
-  }
-
-  .footer {
-    background-color: $primary;
-    height: 3rem;
   }
 }
