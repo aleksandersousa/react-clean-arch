@@ -32,6 +32,8 @@
           "extensions": [".tsx"]
         }
       ],
+      "import/prefer-default-export": "off",
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
       "import/extensions": [
         "error",
         "ignorePackages",
@@ -42,7 +44,7 @@
           "tsx": "never"
         }
       ],
-      "no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-misused-promises": [
         "error",
@@ -50,12 +52,11 @@
           "checksVoidReturn": false
         }
       ],
+      "no-unused-vars": "off",
       "no-console": "off",
       "no-shadow": "off",
-      "import/prefer-default-export": "off",
-      "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
-      "@typescript-eslint/no-explicit-any": "off",
-      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+      "class-methods-use-this": "off",
+      "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }]
     },
     "settings": {
       "import/parsers": {
