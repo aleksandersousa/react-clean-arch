@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Footer, Input, PublicHeader, Spinner,
+  Footer, FormStatus, Input, PublicHeader,
 } from '@/presentation/components';
 import Styles from './styles.scss';
 
@@ -22,10 +22,7 @@ const Login: React.FC = () => (
 
       <span className={Styles.link}>Criar conta</span>
 
-      <div className={Styles.errorWrap}>
-        <Spinner />
-        <span className={Styles.error}>Erro</span>
-      </div>
+      <FormStatus />
     </form>
 
     <Footer />
