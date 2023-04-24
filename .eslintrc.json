@@ -26,6 +26,8 @@
         "import"
     ],
     "rules": {
+      "react/jsx-uses-react": "error",
+      "react/jsx-uses-vars": "error",
       "react/jsx-filename-extension": [
         "warn",
         {
@@ -61,6 +63,9 @@
       "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }]
     },
     "settings": {
+      "react": {
+        "version": "detect"
+      },
       "import/parsers": {
         "@typescript-eslint/parser": [".ts", ".tsx"]
       },
