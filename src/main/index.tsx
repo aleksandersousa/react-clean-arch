@@ -1,5 +1,5 @@
 import React from 'react';
-import { Login } from '@/presentation/pages';
 import ReactDOM from 'react-dom';
+import App from './App';
 
-ReactDOM.render(<Login />, document.getElementById('main'));
+ReactDOM.render(<App />, document.getElementById('main'));
