@@ -30,6 +30,7 @@
       "react/jsx-uses-vars": "error",
       "react/function-component-definition": "off",
       "react/prop-types": "off",
+      "react/no-danger": "off",
       "react/jsx-filename-extension": [
         "warn",
         {
@@ -52,12 +53,14 @@
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/unbound-method": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-misused-promises": [
         "error",
         {
           "checksVoidReturn": false
         }
       ],
+      "jsx-a11y/label-has-associated-control": "off",
       "no-unused-vars": "off",
       "no-console": "off",
       "no-shadow": "off",

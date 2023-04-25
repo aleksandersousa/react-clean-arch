@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState } from 'react';
 import {
   Footer, FormStatus, Input, PublicHeader,
@@ -5,19 +6,22 @@ import {
 import FormContext from '@/presentation/contexts/form/form-context';
 import Styles from './styles.scss';
 
-type StateProps = {
-  isLoading: boolean;
-  errorMessage: string;
-};
-
 const Login: React.FC = () => {
-  const [state, setState] = useState<StateProps>({ isLoading: false, errorMessage: '' });
+  const [state] = useState({
+    isLoading: false,
+  });
+
+  const [errorState] = useState({
+    email: 'Campo obrigatório',
+    password: 'Campo obrigatório',
+    main: '',
+  });
 
   return (
     <div className={Styles.login}>
       <PublicHeader />
 
-      <FormContext.Provider value={state}>
+      <FormContext.Provider value={{ state, errorState }}>
         <form className={Styles.form}>
           <h2>Login</h2>
 
