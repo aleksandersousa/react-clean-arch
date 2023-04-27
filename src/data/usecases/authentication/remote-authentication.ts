@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 import { HttpPostClient, HttpStatusCode } from '@/data/protocols/http';
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/models';
@@ -8,7 +9,6 @@ export default class RemoteAuthentication implements Authentication {
     private readonly url: string,
     private readonly httpPostClient: HttpPostClient<AuthenticationParams, AccountModel>,
   ) {
-    console.log('TODO');
   }
 
   async auth(params: AuthenticationParams): Promise<AccountModel> {
