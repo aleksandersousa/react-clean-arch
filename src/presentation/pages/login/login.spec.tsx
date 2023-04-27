@@ -1,9 +1,15 @@
+/* eslint-disable comma-dangle */
 import React from 'react';
 import {
-  RenderResult, cleanup, fireEvent, render,
+  RenderResult,
+  cleanup,
+  fireEvent,
+  render,
+  waitFor,
 } from '@testing-library/react';
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test';
 import { faker } from '@faker-js/faker';
+import { InvalidCredentialsError } from '@/domain/errors';
 import Login from './Login';
 
 type SutTypes = {
@@ -22,7 +28,7 @@ const makeSut = (params?: SutParams): SutTypes => {
   const authenticationSpy = new AuthenticationSpy();
 
   const sut = render(
-    <Login validation={validationStub} authentication={authenticationSpy} />,
+    <Login validation={validationStub} authentication={authenticationSpy} />
   );
 
   return { sut, authenticationSpy };
@@ -35,7 +41,7 @@ const populateEmailField = (sut: RenderResult, email = faker.internet.email()): 
 
 const populatePasswordField = (
   sut: RenderResult,
-  password = faker.internet.password(),
+  password = faker.internet.password()
 ): void => {
   const passwordInput = sut.getByTestId('password');
   fireEvent.input(passwordInput, { target: { value: password } });
@@ -44,7 +50,7 @@ const populatePasswordField = (
 const simulateStatusForField = (
   sut: RenderResult,
   fieldName: string,
-  validationError?: string,
+  validationError?: string
 ): void => {
   const emailStatus = sut.getByTestId(`${fieldName}-status`);
   expect(emailStatus.title).toBe(validationError || 'Tudo certo!');
@@ -54,7 +60,7 @@ const simulateStatusForField = (
 const simulateValidSubmit = (
   sut: RenderResult,
   email = faker.internet.email(),
-  password = faker.internet.password(),
+  password = faker.internet.password()
 ): void => {
   populateEmailField(sut, email);
 
@@ -170,5 +176,22 @@ describe('Login Page', () => {
     fireEvent.submit(sut.getByTestId('form'));
 
     expect(authenticationSpy.callsCount).toBe(0);
+  });
+
+  test('should present error if Authentication fails', async () => {
+    const { sut, authenticationSpy } = makeSut();
+    const error = new InvalidCredentialsError();
+
+    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error));
+
+    simulateValidSubmit(sut);
+
+    const errorWrap = sut.getByTestId('error-wrap');
+    await waitFor(() => errorWrap);
+
+    const mainError = sut.getByTestId('main-error');
+    expect(mainError.textContent).toBe(error.message);
+
+    expect(errorWrap.childElementCount).toBe(1);
   });
 });
