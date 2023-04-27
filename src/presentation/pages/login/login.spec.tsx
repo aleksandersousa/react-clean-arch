@@ -67,7 +67,6 @@ const simulateValidSubmit = (
   password = faker.internet.password()
 ): void => {
   populateEmailField(sut, email);
-
   populatePasswordField(sut, password);
 
   const submitButton = sut.getByTestId('submit');
@@ -203,6 +202,8 @@ describe('Login Page', () => {
   test('should add accessToken to localstorage on success', async () => {
     const { sut, authenticationSpy } = makeSut();
 
+    window.history.pushState({}, 'Test page', '/login');
+
     simulateValidSubmit(sut);
     await waitFor(() => sut.getByTestId('form'));
 
@@ -210,10 +211,13 @@ describe('Login Page', () => {
       'accessToken',
       authenticationSpy.account.accessToken
     );
+    expect(window.location.pathname).toBe('/');
   });
 
   test('should go to signup page', () => {
     const { sut } = makeSut();
+
+    window.history.pushState({}, 'Test page', '/login');
 
     const register = sut.getByTestId('signup');
     fireEvent.click(register);
