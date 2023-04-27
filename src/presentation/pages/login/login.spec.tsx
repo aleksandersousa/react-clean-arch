@@ -11,6 +11,7 @@ import { faker } from '@faker-js/faker';
 import 'jest-localstorage-mock';
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test';
 import { InvalidCredentialsError } from '@/domain/errors';
+import { BrowserRouter } from 'react-router-dom';
 import Login from './Login';
 
 type SutTypes = {
@@ -29,7 +30,9 @@ const makeSut = (params?: SutParams): SutTypes => {
   const authenticationSpy = new AuthenticationSpy();
 
   const sut = render(
-    <Login validation={validationStub} authentication={authenticationSpy} />
+    <BrowserRouter>
+      <Login validation={validationStub} authentication={authenticationSpy} />
+    </BrowserRouter>
   );
 
   return { sut, authenticationSpy };
@@ -207,5 +210,14 @@ describe('Login Page', () => {
       'accessToken',
       authenticationSpy.account.accessToken
     );
+  });
+
+  test('should go to signup page', () => {
+    const { sut } = makeSut();
+
+    const register = sut.getByTestId('signup');
+    fireEvent.click(register);
+
+    expect(window.location.pathname).toBe('/signup');
   });
 });
