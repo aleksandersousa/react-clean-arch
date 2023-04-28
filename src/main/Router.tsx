@@ -1,11 +1,14 @@
 import React from 'react';
-import { Login } from '@/presentation/pages';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const Router: React.FC = () => (
+type Props = {
+  MakeLogin: React.FC;
+};
+
+const Router: React.FC<Props> = ({ MakeLogin }) => (
   <BrowserRouter>
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<MakeLogin />} />
     </Routes>
   </BrowserRouter>
 );
