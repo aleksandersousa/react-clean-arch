@@ -2,16 +2,18 @@ import { InvalidFieldError } from '@/validation/errors';
 import { faker } from '@faker-js/faker';
 import { EmailValidation } from './email-validation';
 
+const makeSut = () => new EmailValidation(faker.database.column());
+
 describe('first', () => {
   test('should return error if email is invalid', () => {
-    const sut = new EmailValidation(faker.random.word());
+    const sut = makeSut();
     const error = sut.validate(faker.random.word());
 
     expect(error).toEqual(new InvalidFieldError());
   });
 
   test('should return falsy if email is valid', () => {
-    const sut = new EmailValidation(faker.random.word());
+    const sut = makeSut();
     const error = sut.validate(faker.internet.email());
 
     expect(error).toBeFalsy();
