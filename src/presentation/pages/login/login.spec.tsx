@@ -12,7 +12,7 @@ import 'jest-localstorage-mock';
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test';
 import { InvalidCredentialsError } from '@/domain/errors';
 import { BrowserRouter } from 'react-router-dom';
-import Login from './Login';
+import { Login } from '@/presentation/pages';
 
 type SutTypes = {
   sut: RenderResult;
