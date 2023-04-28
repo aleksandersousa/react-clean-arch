@@ -70,7 +70,9 @@
       "no-console": "off",
       "no-shadow": "off",
       "no-plusplus": "off",
+      "no-useless-constructor": "off",
       "class-methods-use-this": "off",
+      "max-classes-per-file": "off",
       "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
       "arrow-parens": "off",
       "new-cap": "off"
