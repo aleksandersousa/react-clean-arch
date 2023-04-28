@@ -18,4 +18,11 @@ describe('first', () => {
 
     expect(error).toBeFalsy();
   });
+
+  test('should return falsy if email is empty', () => {
+    const sut = makeSut();
+    const error = sut.validate('');
+
+    expect(error).toBeFalsy();
+  });
 });
