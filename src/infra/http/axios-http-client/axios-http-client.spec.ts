@@ -7,8 +7,8 @@ jest.mock('axios');
 
 type SutTypes = {
   sut: AxiosHttpClient;
-  mockedAxios: jest.Mocked<typeof axios>
-}
+  mockedAxios: jest.Mocked<typeof axios>;
+};
 
 const makeSut = (): SutTypes => {
   const sut = new AxiosHttpClient();
