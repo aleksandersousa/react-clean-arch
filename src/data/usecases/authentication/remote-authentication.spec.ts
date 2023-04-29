@@ -39,7 +39,7 @@ describe('RemoteAuthentication', () => {
     expect(httpPostClientSpy.body).toBe(authenticationParams);
   });
 
-  test('should throw InvalidCredentialsError if HTTPPostClient return 401', async () => {
+  test('should throw InvalidCredentialsError if HTTPPostClient returns 401', async () => {
     const { sut, httpPostClientSpy } = makeSut();
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.unauthorized,
@@ -50,7 +50,7 @@ describe('RemoteAuthentication', () => {
     await expect(promise).rejects.toThrow(new InvalidCredentialsError());
   });
 
-  test('should throw UnexpectedError if HTTPPostClient return 400', async () => {
+  test('should throw UnexpectedError if HTTPPostClient returns 400', async () => {
     const { sut, httpPostClientSpy } = makeSut();
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.badRequest,
