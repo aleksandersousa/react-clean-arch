@@ -2,11 +2,13 @@ import { faker } from '@faker-js/faker';
 import 'jest-localstorage-mock';
 import { LocalStorageAdapter } from './local-storage-adapter';
 
+const makeSut = () => new LocalStorageAdapter();
+
 describe('LocalStorageAdapter', () => {
   beforeEach(() => localStorage.clear());
 
   test('should call localstorage with correct values', async () => {
-    const sut = new LocalStorageAdapter();
+    const sut = makeSut();
 
     const key = faker.database.column();
     const value = faker.random.word();
