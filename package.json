@@ -10,7 +10,7 @@
     "test:watch": "yarn test -- --watch",
     "test:staged": "yarn test -- --findRelatedTests",
     "test:ci": "yarn test -- --coverage",
-    "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info ",
+    "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
     "check": "yarn-check -u -s",
     "prepare": "husky install"
   },
