@@ -1,5 +1,3 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useEffect, useState } from 'react';
 import { Footer, FormStatus, Input, PublicHeader } from '@/presentation/components';
 import FormContext from '@/presentation/contexts/form/form-context';

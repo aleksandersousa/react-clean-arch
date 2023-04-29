@@ -1,16 +1,21 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Footer, FormStatus, Input, PublicHeader } from '@/presentation/components';
 import FormContext from '@/presentation/contexts/form/form-context';
 import { Link } from 'react-router-dom';
+import { Validation } from '@/presentation/protocols/validation';
 import Styles from './styles.scss';
 
-const Signup: React.FC = () => {
-  const [state] = useState({
+type Props = {
+  validation: Validation;
+};
+
+const Signup: React.FC<Props> = ({ validation }) => {
+  const [state, setState] = useState({
     isLoading: false,
+    name: '',
     email: '',
     password: '',
+    passwordConfirmation: '',
     nameError: 'Campo obrigatorio',
     emailError: 'Campo obrigatorio',
     passwordError: 'Campo obrigatorio',
@@ -18,11 +23,24 @@ const Signup: React.FC = () => {
     mainError: '',
   });
 
+  useEffect(() => {
+    setState(prev => ({
+      ...prev,
+      nameError: validation.validate('name', state.name),
+      emailError: validation.validate('email', state.email),
+      passwordError: validation.validate('password', state.password),
+      passwordConfirmationError: validation.validate(
+        'passwordConfirmation',
+        state.passwordConfirmation
+      ),
+    }));
+  }, [state.name, state.email, state.password, state.passwordConfirmation]);
+
   return (
     <div className={Styles.signup}>
       <PublicHeader />
 
-      <FormContext.Provider value={{ state }}>
+      <FormContext.Provider value={{ state, setState }}>
         <form className={Styles.form}>
           <h2>Criar Conta</h2>
 

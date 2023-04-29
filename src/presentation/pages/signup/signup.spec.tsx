@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { RenderResult, cleanup, render } from '@testing-library/react';
+import { RenderResult, cleanup, fireEvent, render } from '@testing-library/react';
 import {
   AuthenticationSpy,
   Helper,
@@ -20,6 +20,15 @@ type SutParams = {
   validationError: string;
 };
 
+const populateField = (
+  sut: RenderResult,
+  fieldName: string,
+  value = faker.random.word()
+): void => {
+  const input = sut.getByTestId(fieldName);
+  fireEvent.input(input, { target: { value } });
+};
+
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub();
   validationStub.errorMessage = params?.validationError;
@@ -29,7 +38,7 @@ const makeSut = (params?: SutParams): SutTypes => {
 
   const sut = render(
     <BrowserRouter>
-      <Signup />
+      <Signup validation={validationStub} />
     </BrowserRouter>
   );
 
@@ -52,12 +61,21 @@ describe('Signup Page', () => {
   });
 
   test('should inputs start with initial state', () => {
-    const validationError = 'Campo obrigatorio';
+    const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
 
     Helper.testStatusForField(sut, 'name', validationError);
     Helper.testStatusForField(sut, 'email', validationError);
     Helper.testStatusForField(sut, 'password', validationError);
     Helper.testStatusForField(sut, 'passwordConfirmation', validationError);
+  });
+
+  test('should show name error if Validation fails', () => {
+    const validationError = faker.random.words();
+    const { sut } = makeSut({ validationError });
+
+    populateField(sut, 'name');
+
+    Helper.testStatusForField(sut, 'name', validationError);
   });
 });
