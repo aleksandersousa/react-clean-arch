@@ -28,18 +28,14 @@ jobs:
 
       # Consider this as an add on to optimize the execution of actions
       - name: Cache node modules
-        id: cache-npm
+        id: cache-yarn
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
           # yarn cache files are stored in `~/.yarn` on Linux/macOS
-          path: ~/.yarn
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install package dependencies
         run: yarn
