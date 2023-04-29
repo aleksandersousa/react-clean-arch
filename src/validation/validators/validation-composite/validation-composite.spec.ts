@@ -4,8 +4,8 @@ import { ValidationComposite } from './validation-composite';
 
 type SutTypes = {
   sut: ValidationComposite;
-  fieldValidationsSpy: FieldValidationSpy[]
-}
+  fieldValidationsSpy: FieldValidationSpy[];
+};
 
 const makeSut = (fieldName: string): SutTypes => {
   const fieldValidationsSpy = [
