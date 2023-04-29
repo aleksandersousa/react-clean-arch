@@ -48,5 +48,5 @@ jobs:
       - name: Execute test cases
         run: yarn test:coveralls
 
-      # - name: Create test build
-      # run: yarn build
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
