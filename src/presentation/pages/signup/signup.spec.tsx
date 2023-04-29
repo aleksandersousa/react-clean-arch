@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { RenderResult, cleanup, fireEvent, render } from '@testing-library/react';
+import { RenderResult, cleanup, render } from '@testing-library/react';
 import {
   AuthenticationSpy,
   Helper,
@@ -18,15 +18,6 @@ type SutTypes = {
 
 type SutParams = {
   validationError: string;
-};
-
-const populateField = (
-  sut: RenderResult,
-  fieldName: string,
-  value = faker.random.word()
-): void => {
-  const input = sut.getByTestId(fieldName);
-  fireEvent.input(input, { target: { value } });
 };
 
 const makeSut = (params?: SutParams): SutTypes => {
@@ -74,7 +65,7 @@ describe('Signup Page', () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
 
-    populateField(sut, 'name');
+    Helper.populateField(sut, 'name');
 
     Helper.testStatusForField(sut, 'name', validationError);
   });
