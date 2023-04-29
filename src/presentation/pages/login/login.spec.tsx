@@ -1,5 +1,6 @@
 /* eslint-disable comma-dangle */
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import {
   RenderResult,
   cleanup,
@@ -8,15 +9,18 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
-import 'jest-localstorage-mock';
-import { AuthenticationSpy, ValidationStub } from '@/presentation/test';
+import {
+  AuthenticationSpy,
+  ValidationStub,
+  SaveAccessTokenMock,
+} from '@/presentation/test';
 import { InvalidCredentialsError } from '@/domain/errors';
-import { BrowserRouter } from 'react-router-dom';
 import { Login } from '@/presentation/pages';
 
 type SutTypes = {
   sut: RenderResult;
   authenticationSpy: AuthenticationSpy;
+  saveAccessTokenMock: SaveAccessTokenMock;
 };
 
 type SutParams = {
@@ -28,14 +32,19 @@ const makeSut = (params?: SutParams): SutTypes => {
   validationStub.errorMessage = params?.validationError;
 
   const authenticationSpy = new AuthenticationSpy();
+  const saveAccessTokenMock = new SaveAccessTokenMock();
 
   const sut = render(
     <BrowserRouter>
-      <Login validation={validationStub} authentication={authenticationSpy} />
+      <Login
+        validation={validationStub}
+        authentication={authenticationSpy}
+        saveAccessToken={saveAccessTokenMock}
+      />
     </BrowserRouter>
   );
 
-  return { sut, authenticationSpy };
+  return { sut, authenticationSpy, saveAccessTokenMock };
 };
 
 const populateEmailField = (sut: RenderResult, email = faker.internet.email()): void => {
@@ -105,7 +114,6 @@ const simulateValidSubmit = async (
 
 describe('Login Page', () => {
   afterEach(cleanup);
-  beforeEach(() => localStorage.clear());
 
   test('should not render Spinner and error on start', () => {
     const { sut } = makeSut({ validationError: faker.random.words() });
@@ -218,18 +226,27 @@ describe('Login Page', () => {
     testErrorWrapChildCount(sut, 1);
   });
 
-  test('should add accessToken to localstorage on success', async () => {
-    const { sut, authenticationSpy } = makeSut();
+  test('should call SaveAccessToken on success', async () => {
+    const { sut, authenticationSpy, saveAccessTokenMock } = makeSut();
 
     startInRoute('/login');
 
     await simulateValidSubmit(sut);
 
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      'accessToken',
-      authenticationSpy.account.accessToken
-    );
+    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accessToken);
     expect(window.location.pathname).toBe('/');
+  });
+
+  test('should present error if SaveAccessToken fails', async () => {
+    const { sut, saveAccessTokenMock } = makeSut();
+    const error = new InvalidCredentialsError();
+
+    jest.spyOn(saveAccessTokenMock, 'save').mockReturnValueOnce(Promise.reject(error));
+
+    await simulateValidSubmit(sut);
+
+    testElementText(sut, 'main-error', error.message);
+    testErrorWrapChildCount(sut, 1);
   });
 
   test('should go to signup page', () => {

@@ -4,16 +4,17 @@ import React, { useEffect, useState } from 'react';
 import { Footer, FormStatus, Input, PublicHeader } from '@/presentation/components';
 import FormContext from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
-import { Authentication } from '@/domain/usecases';
+import { Authentication, SaveAccessToken } from '@/domain/usecases';
 import { Link, useNavigate } from 'react-router-dom';
 import Styles from './styles.scss';
 
 type Props = {
   validation: Validation;
   authentication: Authentication;
+  saveAccessToken: SaveAccessToken;
 };
 
-const Login: React.FC<Props> = ({ validation, authentication }) => {
+const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }) => {
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -40,7 +41,7 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
         password: state.password,
       });
 
-      localStorage.setItem('accessToken', account.accessToken);
+      await saveAccessToken.save(account.accessToken);
 
       navigate('/');
     } catch (error) {
