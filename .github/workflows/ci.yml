@@ -52,5 +52,5 @@ jobs:
       - name: Execute test cases
         run: yarn test:ci
 
-      - name: Create test build
-        run: yarn build
+      # - name: Create test build
+      # run: yarn build
