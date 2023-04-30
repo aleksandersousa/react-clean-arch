@@ -55,7 +55,17 @@ const Signup: React.FC<Props> = ({ validation }) => {
             />
           </div>
 
-          <button type="submit" data-testid="submit" className={Styles.submit} disabled>
+          <button
+            type="submit"
+            data-testid="submit"
+            className={Styles.submit}
+            disabled={
+              !!state.nameError ||
+              !!state.emailError ||
+              !!state.passwordError ||
+              !!state.passwordConfirmationError
+            }
+          >
             Criar
           </button>
 
