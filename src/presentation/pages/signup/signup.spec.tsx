@@ -69,4 +69,22 @@ describe('Signup Page', () => {
 
     Helper.testStatusForField(sut, 'name', validationError);
   });
+
+  test('should show email error if Validation fails', () => {
+    const validationError = faker.random.words();
+    const { sut } = makeSut({ validationError });
+
+    Helper.populateField(sut, 'email');
+
+    Helper.testStatusForField(sut, 'email', validationError);
+  });
+
+  test('should show password error if Validation fails', () => {
+    const validationError = faker.random.words();
+    const { sut } = makeSut({ validationError });
+
+    Helper.populateField(sut, 'password');
+
+    Helper.testStatusForField(sut, 'password', validationError);
+  });
 });
