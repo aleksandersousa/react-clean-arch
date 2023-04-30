@@ -36,12 +36,35 @@ const Signup: React.FC<Props> = ({ validation }) => {
     }));
   }, [state.name, state.email, state.password, state.passwordConfirmation]);
 
+  const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+
+    try {
+      if (state.isLoading || state.emailError || state.passwordError) {
+        return;
+      }
+
+      setState(prev => ({ ...prev, isLoading: true }));
+
+      // const account = await authentication.auth({
+      // email: state.email,
+      // password: state.password,
+      // });
+
+      // await saveAccessToken.save(account.accessToken);
+
+      // navigate('/');
+    } catch (error) {
+      setState(prev => ({ ...prev, isLoading: false, mainError: error.message }));
+    }
+  };
+
   return (
     <div className={Styles.signup}>
       <PublicHeader />
 
       <FormContext.Provider value={{ state, setState }}>
-        <form className={Styles.form}>
+        <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
           <h2>Criar Conta</h2>
 
           <div className={Styles.inputWrap}>
