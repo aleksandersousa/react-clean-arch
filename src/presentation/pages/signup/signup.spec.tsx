@@ -244,4 +244,15 @@ describe('Signup Page', () => {
     Helper.testElementText(sut, 'main-error', error.message);
     Helper.testChildCount(sut, 'error-wrap', 1);
   });
+
+  test('should go to signup page', () => {
+    const { sut } = makeSut();
+
+    startInRoute('/login');
+
+    const loginLink = sut.getByTestId('login-link');
+    fireEvent.click(loginLink);
+
+    expect(window.location.pathname).toBe('/login');
+  });
 });
