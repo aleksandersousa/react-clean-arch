@@ -208,8 +208,8 @@ describe('Login Page', () => {
 
     startInRoute('/login');
 
-    const register = sut.getByTestId('signup');
-    fireEvent.click(register);
+    const registerLink = sut.getByTestId('signup-link');
+    fireEvent.click(registerLink);
 
     expect(window.location.pathname).toBe('/signup');
   });
