@@ -8,7 +8,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 import {
-  AuthenticationSpy,
+  AddAccountSpy,
   Helper,
   SaveAccessTokenMock,
   ValidationStub,
@@ -18,7 +18,7 @@ import Signup from './Signup';
 
 type SutTypes = {
   sut: RenderResult;
-  authenticationSpy: AuthenticationSpy;
+  addAccountSpy: AddAccountSpy;
   saveAccessTokenMock: SaveAccessTokenMock;
 };
 
@@ -30,16 +30,16 @@ const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub();
   validationStub.errorMessage = params?.validationError;
 
-  const authenticationSpy = new AuthenticationSpy();
+  const addAccountSpy = new AddAccountSpy();
   const saveAccessTokenMock = new SaveAccessTokenMock();
 
   const sut = render(
     <BrowserRouter>
-      <Signup validation={validationStub} />
+      <Signup validation={validationStub} addAccount={addAccountSpy} />
     </BrowserRouter>
   );
 
-  return { sut, authenticationSpy, saveAccessTokenMock };
+  return { sut, addAccountSpy, saveAccessTokenMock };
 };
 
 const simulateValidSubmit = async (
@@ -165,5 +165,21 @@ describe('Signup Page', () => {
     await simulateValidSubmit(sut);
 
     Helper.testElementExists(sut, 'spinner');
+  });
+
+  test('should call AddAccount with correct values', async () => {
+    const { sut, addAccountSpy } = makeSut();
+    const name = faker.definitions.name.first_name[0];
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+
+    await simulateValidSubmit(sut, name, email, password);
+
+    expect(addAccountSpy.params).toEqual({
+      name,
+      email,
+      password,
+      passwordConfirmation: password,
+    });
   });
 });
