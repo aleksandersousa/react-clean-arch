@@ -42,7 +42,13 @@ const Signup: React.FC<Props> = ({ validation, addAccount }) => {
     e.preventDefault();
 
     try {
-      if (state.isLoading || state.emailError || state.passwordError) {
+      if (
+        state.isLoading ||
+        state.nameError ||
+        state.emailError ||
+        state.passwordError ||
+        state.passwordConfirmationError
+      ) {
         return;
       }
 
