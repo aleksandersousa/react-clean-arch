@@ -14,6 +14,7 @@ import {
   ValidationStub,
 } from '@/presentation/test';
 import { faker } from '@faker-js/faker';
+import { EmailInUserError } from '@/domain/errors';
 import Signup from './Signup';
 
 type SutTypes = {
@@ -57,6 +58,11 @@ const simulateValidSubmit = async (
   fireEvent.submit(form);
 
   await waitFor(() => form);
+};
+
+const testElementText = (sut: RenderResult, fieldName: string, text: string): void => {
+  const el = sut.getByTestId(fieldName);
+  expect(el.textContent).toBe(text);
 };
 
 describe('Signup Page', () => {
@@ -199,5 +205,17 @@ describe('Signup Page', () => {
     await simulateValidSubmit(sut);
 
     expect(addAccountSpy.callsCount).toBe(0);
+  });
+
+  test('should present error if Authentication fails', async () => {
+    const { sut, addAccountSpy } = makeSut();
+    const error = new EmailInUserError();
+
+    jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error);
+
+    await simulateValidSubmit(sut);
+
+    testElementText(sut, 'main-error', error.message);
+    Helper.testChildCount(sut, 'error-wrap', 1);
   });
 });
