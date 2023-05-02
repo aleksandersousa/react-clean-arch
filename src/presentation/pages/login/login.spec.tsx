@@ -48,11 +48,6 @@ const makeSut = (params?: SutParams): SutTypes => {
   return { sut, authenticationSpy, saveAccessTokenMock };
 };
 
-const testElementText = (sut: RenderResult, fieldName: string, text: string): void => {
-  const el = sut.getByTestId(fieldName);
-  expect(el.textContent).toBe(text);
-};
-
 const startInRoute = (routeName: string): void => {
   window.history.pushState({}, 'Test page', routeName);
 };
@@ -181,7 +176,7 @@ describe('Login Page', () => {
 
     await simulateValidSubmit(sut);
 
-    testElementText(sut, 'main-error', error.message);
+    Helper.testElementText(sut, 'main-error', error.message);
     Helper.testChildCount(sut, 'error-wrap', 1);
   });
 
@@ -204,7 +199,7 @@ describe('Login Page', () => {
 
     await simulateValidSubmit(sut);
 
-    testElementText(sut, 'main-error', error.message);
+    Helper.testElementText(sut, 'main-error', error.message);
     Helper.testChildCount(sut, 'error-wrap', 1);
   });
 
