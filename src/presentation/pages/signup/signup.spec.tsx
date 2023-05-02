@@ -36,7 +36,11 @@ const makeSut = (params?: SutParams): SutTypes => {
 
   const sut = render(
     <BrowserRouter>
-      <Signup validation={validationStub} addAccount={addAccountSpy} />
+      <Signup
+        validation={validationStub}
+        addAccount={addAccountSpy}
+        saveAccessToken={saveAccessTokenMock}
+      />
     </BrowserRouter>
   );
 
@@ -58,6 +62,10 @@ const simulateValidSubmit = async (
   fireEvent.submit(form);
 
   await waitFor(() => form);
+};
+
+const startInRoute = (routeName: string): void => {
+  window.history.pushState({}, 'Test page', routeName);
 };
 
 describe('Signup Page', () => {
@@ -202,7 +210,7 @@ describe('Signup Page', () => {
     expect(addAccountSpy.callsCount).toBe(0);
   });
 
-  test('should present error if Authentication fails', async () => {
+  test('should present error if AddAccount fails', async () => {
     const { sut, addAccountSpy } = makeSut();
     const error = new EmailInUserError();
 
@@ -212,5 +220,16 @@ describe('Signup Page', () => {
 
     Helper.testElementText(sut, 'main-error', error.message);
     Helper.testChildCount(sut, 'error-wrap', 1);
+  });
+
+  test('should call SaveAccessToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut();
+
+    startInRoute('/signup');
+
+    await simulateValidSubmit(sut);
+
+    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken);
+    expect(window.location.pathname).toBe('/');
   });
 });
