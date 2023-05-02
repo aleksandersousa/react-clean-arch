@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Footer, FormStatus, Input, PublicHeader } from '@/presentation/components';
 import FormContext from '@/presentation/contexts/form/form-context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Validation } from '@/presentation/protocols/validation';
-import { AddAccount } from '@/domain/usecases';
+import { AddAccount, SaveAccessToken } from '@/domain/usecases';
 import Styles from './styles.scss';
 
 type Props = {
   validation: Validation;
   addAccount: AddAccount;
+  saveAccessToken: SaveAccessToken;
 };
 
-const Signup: React.FC<Props> = ({ validation, addAccount }) => {
+const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }) => {
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
     isLoading: false,
     name: '',
@@ -61,9 +64,9 @@ const Signup: React.FC<Props> = ({ validation, addAccount }) => {
         passwordConfirmation: state.passwordConfirmation,
       });
 
-      // await saveAccessToken.save(account.accessToken);
+      await saveAccessToken.save(account.accessToken);
 
-      // navigate('/');
+      navigate('/');
     } catch (error) {
       setState(prev => ({ ...prev, isLoading: false, mainError: error.message }));
     }
