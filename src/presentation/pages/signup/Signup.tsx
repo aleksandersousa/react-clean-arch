@@ -3,13 +3,15 @@ import { Footer, FormStatus, Input, PublicHeader } from '@/presentation/componen
 import FormContext from '@/presentation/contexts/form/form-context';
 import { Link } from 'react-router-dom';
 import { Validation } from '@/presentation/protocols/validation';
+import { AddAccount } from '@/domain/usecases';
 import Styles from './styles.scss';
 
 type Props = {
   validation: Validation;
+  addAccount: AddAccount;
 };
 
-const Signup: React.FC<Props> = ({ validation }) => {
+const Signup: React.FC<Props> = ({ validation, addAccount }) => {
   const [state, setState] = useState({
     isLoading: false,
     name: '',
@@ -46,10 +48,12 @@ const Signup: React.FC<Props> = ({ validation }) => {
 
       setState(prev => ({ ...prev, isLoading: true }));
 
-      // const account = await authentication.auth({
-      // email: state.email,
-      // password: state.password,
-      // });
+      const account = await addAccount.add({
+        name: state.name,
+        email: state.email,
+        password: state.password,
+        passwordConfirmation: state.passwordConfirmation,
+      });
 
       // await saveAccessToken.save(account.accessToken);
 
