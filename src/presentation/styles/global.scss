@@ -40,6 +40,7 @@ button {
   border: none;
 
   transition: 0.2s all ease-in-out;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.9;

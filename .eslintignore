@@ -1,6 +1,8 @@
+*.js
+*.scss
+*.json
 node_modules
 .vscode
 coverage
-/*.js
 public
-*.scss
+cypress.config.ts
