@@ -1,11 +1,11 @@
 import React from 'react';
 import Router from './Router';
+import { makeLogin, makeSignup } from './factories/pages';
 import '@/presentation/styles/global.scss';
-import { makeLogin } from './factories/pages/login/login-factory';
 
 const App: React.FC = () => (
   <div>
-    <Router MakeLogin={makeLogin} />
+    <Router MakeLogin={makeLogin} MakeSignup={makeSignup} />
   </div>
 );
 
