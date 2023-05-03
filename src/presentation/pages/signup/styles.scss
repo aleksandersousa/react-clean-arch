@@ -28,20 +28,6 @@
       gap: 1rem;
     }
 
-    .submit {
-      margin-top: 1rem;
-
-      &:disabled {
-        background-color: $disabledBg;
-        color: $disabledColor;
-        cursor: not-allowed;
-
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
-
     .link {
       text-align: center;
       color: $primary;
