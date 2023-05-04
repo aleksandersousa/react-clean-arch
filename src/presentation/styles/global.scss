@@ -18,15 +18,8 @@ body {
 input[type="email"], 
 input[type="password"],
 input[type="text"] {
-  border: 1px solid $primaryLight;
-  border-radius: 4px;
-  line-height: 2.5rem;
-
-  padding: 0px 2.5rem 0px 0.5rem;
-
-  &:focus {
-    outline-color: $primaryLight;
-  }
+  border: none;
+  outline: none;
 } 
 
 button {
@@ -34,7 +27,7 @@ button {
   color: white;
 
   font-size: 1rem;
-  line-height: 4.25rem;
+  line-height: 3rem;
 
   border-radius: 8px;
   border: none;
