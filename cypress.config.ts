@@ -9,7 +9,7 @@ export default defineConfig({
       return require('./src/main/test/cypress/plugins/index.js')(on, config)
     },
     baseUrl: 'http://localhost:8080',
-    supportFile: false,
+    supportFile: './src/main/test/cypress/support/command.js',
     specPattern: 'src/main/test/cypress/integration/**/*.cy.{js,jsx,ts,tsx}',
   },
 })
