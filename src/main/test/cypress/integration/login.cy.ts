@@ -206,4 +206,24 @@ describe('Login', () => {
 
     cy.get('@loginRequest.all').should('have.length', 1);
   });
+
+  it('Should not call submit if form is invalid', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: /login/,
+      },
+      {
+        statusCode: 200,
+        body: {
+          accessToken: faker.datatype.uuid(),
+        },
+      }
+    ).as('loginRequest');
+
+    cy.getByTestId('email').type(faker.internet.email());
+    cy.getByTestId('email').type('{enter}');
+
+    cy.get('@loginRequest.all').should('have.length', 0);
+  });
 });
