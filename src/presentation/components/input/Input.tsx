@@ -15,10 +15,15 @@ const Input: React.FC<Props> = ({ type, name, placeholder }: Props) => {
   const error = state[`${name}Error`] as string;
 
   return (
-    <div className={Styles.inputWrap}>
+    <div
+      data-testid={`${name}-wrap`}
+      className={Styles.inputWrap}
+      data-status={error ? 'invalid' : 'valid'}
+    >
       <input
         placeholder=" "
         ref={inputRef}
+        title={error}
         data-testid={name}
         type={type}
         name={name}
@@ -28,19 +33,13 @@ const Input: React.FC<Props> = ({ type, name, placeholder }: Props) => {
       />
       <label
         data-testid={`${name}-label`}
+        title={error}
         onClick={() => {
           inputRef.current.focus();
         }}
       >
         {placeholder}
       </label>
-      <span
-        data-testid={`${name}-status`}
-        className={Styles.status}
-        title={error || 'Tudo certo!'}
-      >
-        {error ? '🔴' : '🟢'}
-      </span>
     </div>
   );
 };
