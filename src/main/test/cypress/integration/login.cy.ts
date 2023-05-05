@@ -174,8 +174,8 @@ describe('Login', () => {
       }
     );
 
-    cy.getByTestId('email').type('aleksander-ssousa@outlook.com');
-    cy.getByTestId('password').type('12345678');
+    cy.getByTestId('email').type(faker.internet.email());
+    cy.getByTestId('password').type(faker.random.alphaNumeric(5));
 
     cy.getByTestId('submit').click();
 
