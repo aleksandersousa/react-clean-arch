@@ -85,4 +85,14 @@ describe('Signup', () => {
 
     cy.url().should('eq', `${baseUrl as string}/signup`);
   });
+
+  it('Should present UnexpectedError if invalid body is returned', () => {
+    Http.mockInvalidBody();
+
+    simulateValidSubmit();
+
+    testMainError('Algo de inesperado aconteceu. Tente novamente em breve.');
+
+    cy.url().should('eq', `${baseUrl as string}/signup`);
+  });
 });
