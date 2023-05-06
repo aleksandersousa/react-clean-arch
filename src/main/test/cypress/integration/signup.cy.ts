@@ -1,5 +1,9 @@
 import { faker } from '@faker-js/faker';
-import { testInputStatus, testMainError } from '../support/form-helper';
+import {
+  testInputStatus,
+  testLocalStorageItem,
+  testMainError,
+} from '../support/form-helper';
 import * as Http from '../support/signup-mocks';
 
 const { baseUrl } = Cypress.config();
@@ -104,5 +108,18 @@ describe('Signup', () => {
     testMainError('Algo de inesperado aconteceu. Tente novamente em breve.');
 
     cy.url().should('eq', `${baseUrl as string}/signup`);
+  });
+
+  it('Should save accessToken if valid credentials are provided', () => {
+    Http.mockOk();
+
+    simulateValidSubmit();
+
+    cy.getByTestId('spinner').should('not.exist');
+    cy.getByTestId('main-error').should('not.exist');
+
+    cy.url().should('eq', `${baseUrl as string}/`);
+
+    testLocalStorageItem('accessToken');
   });
 });
