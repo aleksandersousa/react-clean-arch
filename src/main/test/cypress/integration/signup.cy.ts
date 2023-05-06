@@ -8,14 +8,17 @@ import * as Http from '../support/signup-mocks';
 
 const { baseUrl } = Cypress.config();
 
-const simulateValidSubmit = (): void => {
+const populateFormFields = (): void => {
   cy.getByTestId('name').type(faker.name.fullName());
   cy.getByTestId('email').type(faker.internet.email());
 
   const password = faker.internet.password();
   cy.getByTestId('password').type(password);
   cy.getByTestId('passwordConfirmation').type(password);
+};
 
+const simulateValidSubmit = (): void => {
+  populateFormFields();
   cy.getByTestId('submit').click();
 };
 
@@ -121,5 +124,14 @@ describe('Signup', () => {
     cy.url().should('eq', `${baseUrl as string}/`);
 
     testLocalStorageItem('accessToken');
+  });
+
+  it('Should prevent multiple submits', () => {
+    Http.mockOk();
+
+    populateFormFields();
+    cy.getByTestId('submit').dblclick();
+
+    cy.get('@request.all').should('have.length', 1);
   });
 });
