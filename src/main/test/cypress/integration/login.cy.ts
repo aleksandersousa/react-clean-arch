@@ -8,9 +8,13 @@ import * as Http from '../support/login-mocks';
 
 const { baseUrl } = Cypress.config();
 
-const simulateValidSubmit = (): void => {
+const populateFormFields = (): void => {
   cy.getByTestId('email').type(faker.internet.email());
   cy.getByTestId('password').type(faker.random.alphaNumeric(5));
+};
+
+const simulateValidSubmit = (): void => {
+  populateFormFields();
   cy.getByTestId('submit').click();
 };
 
@@ -106,8 +110,7 @@ describe('Login', () => {
   it('Should prevent multiple submits', () => {
     Http.mockOk();
 
-    cy.getByTestId('email').type(faker.internet.email());
-    cy.getByTestId('password').type(faker.random.alphaNumeric(5));
+    populateFormFields();
     cy.getByTestId('submit').dblclick();
 
     cy.get('@request.all').should('have.length', 1);
