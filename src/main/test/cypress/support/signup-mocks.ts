@@ -10,3 +10,6 @@ export const mockInvalidBody = (): void =>
   Helper.mockOK(/signup/, 'POST', {
     anyPropertyDifferentFromAccessToken: faker.datatype.uuid(),
   });
+
+export const mockInvalidData = (): void =>
+  Helper.mockOK(/signup/, 'POST', { accessToken: undefined });
