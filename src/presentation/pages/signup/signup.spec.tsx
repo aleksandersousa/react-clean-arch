@@ -14,7 +14,7 @@ import {
   ValidationStub,
 } from '@/presentation/test';
 import { faker } from '@faker-js/faker';
-import { EmailInUserError } from '@/domain/errors';
+import { EmailInUseError } from '@/domain/errors';
 import Signup from './Signup';
 
 type SutTypes = {
@@ -212,7 +212,7 @@ describe('Signup Page', () => {
 
   test('should present error if AddAccount fails', async () => {
     const { sut, addAccountSpy } = makeSut();
-    const error = new EmailInUserError();
+    const error = new EmailInUseError();
 
     jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error);
 
@@ -235,7 +235,7 @@ describe('Signup Page', () => {
 
   test('should present error if SaveAccessToken fails', async () => {
     const { sut, saveAccessTokenMock } = makeSut();
-    const error = new EmailInUserError();
+    const error = new EmailInUseError();
 
     jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(error);
 

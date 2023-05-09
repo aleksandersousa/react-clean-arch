@@ -3,7 +3,7 @@ import { AccountModel } from '@/domain/models';
 import { faker } from '@faker-js/faker';
 import { mockAccountModel, mockAddAccountParams } from '@/domain/test';
 import { HttpStatusCode } from '@/data/protocols/http';
-import { EmailInUserError, UnexpectedError } from '@/domain/errors';
+import { EmailInUseError, UnexpectedError } from '@/domain/errors';
 import { RemoteAddAccount } from './remote-add-account';
 
 type SutTypes = {
@@ -46,7 +46,7 @@ describe('RemoteAddAccount', () => {
 
     const promise = sut.add(mockAddAccountParams());
 
-    await expect(promise).rejects.toThrow(new EmailInUserError());
+    await expect(promise).rejects.toThrow(new EmailInUseError());
   });
 
   test('should throw UnexpectedError if HTTPPostClient returns 400', async () => {
