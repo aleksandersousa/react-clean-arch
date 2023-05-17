@@ -1,0 +1,162 @@
+@import "../../styles/color.scss";
+
+.surveyListWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+
+  background-color: $disabledBg;
+
+  .headerWrap {
+    display: flex;
+    justify-content: center;
+
+    background-color: $primary;
+    border-top: 40px solid $primaryDark;
+
+    .headerContent {
+      display: flex;
+      justify-content: space-between;
+
+      max-width: 800px;
+      flex-grow: 1;
+      padding: 1.5rem 2.5rem;
+
+      img {
+        width: 60px;
+        align-self: center;
+      }
+
+      .logoutWrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+        align-items: flex-end;
+
+        color: $white;
+
+        span {
+          font-size: 1rem;
+          margin-bottom: 8px;
+        }
+
+        a {
+          color: $white;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .contentWrap {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+
+    width: 100%;
+    max-width: 800px;
+    flex-grow: 1;
+    padding: 0 2.5rem;
+
+    h2 {
+      color: $primaryDark;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      margin-bottom: 24px;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      li {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-basis: 48%;
+
+        background-color: $white;
+        box-shadow: 0px 1px 3px -1px $black;
+
+        height: 250px;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+
+        .surveyContent {
+          display: flex;
+          justify-content: space-between;
+          flex-grow: 1;
+
+          border-radius: 8px 8px 0 0;
+          background-repeat: no-repeat;
+          background-position: 0 0, 54 0;
+          background-size: 54px 100%, 100% 100%;
+          background-image: 
+            linear-gradient(to right, rgba($primaryLight, 0.1), rgba($primaryLight, 0.1)), 
+            linear-gradient(to right, $white, $white);
+
+          time {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-self: center;
+            align-items: center;
+            flex-shrink: 0;
+
+            background-color: $primaryLight;
+            color: $white;
+
+            border-radius: 8px;
+            margin-left: 1.5rem;
+            width: 60px;
+            height: 100px;
+
+            .day {
+              font-size: 40px;
+              font-weight: bold;
+            }
+            .month {
+              text-transform: lowercase;
+              margin: 0 0 4px;
+            }
+            .year {
+              font-size: 16px;
+            }
+          }
+
+          p {
+            font-size: 18px;
+            margin: 24px;
+            align-self: center;
+          }
+        }
+
+        footer {
+          background-color: $primary;
+          color: $white;
+
+          line-height: 40px;
+          text-transform: lowercase;
+          text-align: center;
+
+          border-radius: 0 0 8px 8px;
+
+          cursor: pointer;
+
+          &:hover {
+            background-color: $primaryDark;
+          }
+        }
+      }
+    }
+  }
+}

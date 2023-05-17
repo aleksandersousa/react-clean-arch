@@ -84,7 +84,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }) =>
   };
 
   return (
-    <div className={Styles.signup}>
+    <div className={Styles.signupWrap}>
       <PublicHeader />
 
       <FormContext.Provider value={{ state, setState }}>
