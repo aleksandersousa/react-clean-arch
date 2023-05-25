@@ -8,52 +8,6 @@
 
   background-color: $disabledBg;
 
-  .headerWrap {
-    display: flex;
-    justify-content: center;
-
-    background-color: $primary;
-    border-top: 40px solid $primaryDark;
-
-    .headerContent {
-      display: flex;
-      justify-content: space-between;
-
-      max-width: 800px;
-      flex-grow: 1;
-      padding: 1.5rem 2.5rem;
-
-      img {
-        width: 60px;
-        align-self: center;
-      }
-
-      .logoutWrap {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-self: center;
-        align-items: flex-end;
-
-        color: $white;
-
-        span {
-          font-size: 1rem;
-          margin-bottom: 8px;
-        }
-
-        a {
-          color: $white;
-          text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-  }
-
   .contentWrap {
     display: flex;
     flex-direction: column;
