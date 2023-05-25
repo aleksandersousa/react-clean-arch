@@ -45,3 +45,9 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .headerWrap {
+    border-top-width: 0px;
+  }
+}
