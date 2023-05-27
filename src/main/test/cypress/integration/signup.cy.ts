@@ -113,7 +113,7 @@ describe('Signup', () => {
     cy.url().should('eq', `${baseUrl as string}/signup`);
   });
 
-  it('Should save accessToken if valid credentials are provided', () => {
+  it('Should save account if valid credentials are provided', () => {
     Http.mockOk();
 
     simulateValidSubmit();
@@ -123,7 +123,7 @@ describe('Signup', () => {
 
     cy.url().should('eq', `${baseUrl as string}/`);
 
-    testLocalStorageItem('accessToken');
+    testLocalStorageItem('account');
   });
 
   it('Should prevent multiple submits', () => {

@@ -10,7 +10,7 @@ import {
 import {
   AddAccountSpy,
   Helper,
-  SaveAccessTokenMock,
+  UpdateCurrentAccountMock,
   ValidationStub,
 } from '@/presentation/test';
 import { faker } from '@faker-js/faker';
@@ -20,7 +20,7 @@ import Signup from './Signup';
 type SutTypes = {
   sut: RenderResult;
   addAccountSpy: AddAccountSpy;
-  saveAccessTokenMock: SaveAccessTokenMock;
+  saveAccessTokenMock: UpdateCurrentAccountMock;
 };
 
 type SutParams = {
@@ -32,14 +32,14 @@ const makeSut = (params?: SutParams): SutTypes => {
   validationStub.errorMessage = params?.validationError;
 
   const addAccountSpy = new AddAccountSpy();
-  const saveAccessTokenMock = new SaveAccessTokenMock();
+  const saveAccessTokenMock = new UpdateCurrentAccountMock();
 
   const sut = render(
     <BrowserRouter>
       <Signup
         validation={validationStub}
         addAccount={addAccountSpy}
-        saveAccessToken={saveAccessTokenMock}
+        updateCurrentAccount={saveAccessTokenMock}
       />
     </BrowserRouter>
   );
@@ -229,7 +229,7 @@ describe('Signup Page', () => {
 
     await simulateValidSubmit(sut);
 
-    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken);
+    expect(saveAccessTokenMock.account).toEqual(addAccountSpy.account);
     expect(window.location.pathname).toBe('/');
   });
 

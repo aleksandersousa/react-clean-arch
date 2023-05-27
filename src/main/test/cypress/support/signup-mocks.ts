@@ -15,4 +15,7 @@ export const mockInvalidData = (): void =>
   Helper.mockOK(/signup/, 'POST', { accessToken: undefined });
 
 export const mockOk = (): void =>
-  Helper.mockOK(/signup/, 'POST', { accessToken: faker.datatype.uuid() });
+  Helper.mockOK(/signup/, 'POST', {
+    accessToken: faker.datatype.uuid(),
+    name: faker.definitions.name.name[0],
+  });

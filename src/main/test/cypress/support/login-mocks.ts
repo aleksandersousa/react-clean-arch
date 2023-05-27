@@ -8,7 +8,10 @@ export const mockUnexpectedError = (): void =>
   Helper.mockUnexpectedError(/login/, 'POST');
 
 export const mockOk = (): void =>
-  Helper.mockOK(/login/, 'POST', { accessToken: faker.datatype.uuid() });
+  Helper.mockOK(/login/, 'POST', {
+    accessToken: faker.datatype.uuid(),
+    name: faker.definitions.name.name[0],
+  });
 
 export const mockInvalidBody = (): void =>
   Helper.mockOK(/login/, 'POST', {

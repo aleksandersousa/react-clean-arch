@@ -8,17 +8,17 @@ import {
 } from '@/presentation/components';
 import FormContext from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
-import { Authentication, SaveAccessToken } from '@/domain/usecases';
+import { Authentication, UpdateCurrentAccount } from '@/domain/usecases';
 import { Link, useNavigate } from 'react-router-dom';
 import Styles from './styles.scss';
 
 type Props = {
   validation: Validation;
   authentication: Authentication;
-  saveAccessToken: SaveAccessToken;
+  updateCurrentAccount: UpdateCurrentAccount;
 };
 
-const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }) => {
+const Login: React.FC<Props> = ({ validation, authentication, updateCurrentAccount }) => {
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -46,7 +46,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken })
         password: state.password,
       });
 
-      await saveAccessToken.save(account.accessToken);
+      await updateCurrentAccount.save(account);
 
       navigate('/');
     } catch (error) {
