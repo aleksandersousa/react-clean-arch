@@ -55,13 +55,13 @@ describe('Signup Page', () => {
   test('should not render Spinner and error on start', () => {
     makeSut({ validationError: faker.word.words() });
 
-    Helper.testChildCount('error-wrap', 0);
+    expect(screen.getByTestId('error-wrap').children).toHaveLength(0);
   });
 
   test('should show submit button disabled on start', () => {
     makeSut({ validationError: faker.word.words() });
 
-    Helper.testButtonIsDisabled('submit', true);
+    expect(screen.getByTestId('submit')).toBeDisabled();
   });
 
   test('should inputs start with initial state', () => {
@@ -146,7 +146,7 @@ describe('Signup Page', () => {
     Helper.populateField('password');
     Helper.populateField('passwordConfirmation');
 
-    Helper.testButtonIsDisabled('submit', false);
+    expect(screen.getByTestId('submit')).toBeEnabled();
   });
 
   test('should show spinner on submit', async () => {
@@ -154,7 +154,7 @@ describe('Signup Page', () => {
 
     await simulateValidSubmit();
 
-    Helper.testElementExists('spinner');
+    expect(screen.queryByTestId('spinner')).toBeInTheDocument();
   });
 
   test('should call AddAccount with correct values', async () => {
@@ -199,8 +199,8 @@ describe('Signup Page', () => {
 
     await simulateValidSubmit();
 
-    Helper.testElementText('main-error', error.message);
-    Helper.testChildCount('error-wrap', 1);
+    expect(screen.getByTestId('main-error')).toHaveTextContent(error.message);
+    expect(screen.getByTestId('error-wrap').children).toHaveLength(1);
   });
 
   test('should call SaveAccessToken on success', async () => {
