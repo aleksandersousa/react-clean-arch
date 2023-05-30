@@ -9,7 +9,12 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
-import { AuthenticationSpy, ValidationStub, Helper } from '@/presentation/test';
+import {
+  AuthenticationSpy,
+  ValidationStub,
+  Helper,
+  UtilsHelper,
+} from '@/presentation/test';
 import { InvalidCredentialsError } from '@/domain/errors';
 import { Login } from '@/presentation/pages';
 import { ApiContext } from '@/presentation/contexts';
@@ -41,10 +46,6 @@ const makeSut = (params?: SutParams): SutTypes => {
   );
 
   return { sut, authenticationSpy, setCurrentAccountMock };
-};
-
-const startInRoute = (routeName: string): void => {
-  window.history.pushState({}, 'Test page', routeName);
 };
 
 const simulateValidSubmit = async (
@@ -178,7 +179,7 @@ describe('Login Page', () => {
   test('should call SaveAccessToken on success', async () => {
     const { sut, authenticationSpy, setCurrentAccountMock } = makeSut();
 
-    startInRoute('/login');
+    UtilsHelper.startInRoute('/login');
 
     await simulateValidSubmit(sut);
 
@@ -189,7 +190,7 @@ describe('Login Page', () => {
   test('should go to signup page', () => {
     const { sut } = makeSut();
 
-    startInRoute('/login');
+    UtilsHelper.startInRoute('/login');
 
     const registerLink = sut.getByTestId('signup-link');
     fireEvent.click(registerLink);

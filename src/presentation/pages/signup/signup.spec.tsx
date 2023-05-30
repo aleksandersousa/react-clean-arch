@@ -7,7 +7,7 @@ import {
   render,
   waitFor,
 } from '@testing-library/react';
-import { AddAccountSpy, Helper, ValidationStub } from '@/presentation/test';
+import { AddAccountSpy, Helper, UtilsHelper, ValidationStub } from '@/presentation/test';
 import { faker } from '@faker-js/faker';
 import { EmailInUseError } from '@/domain/errors';
 import { AccountModel } from '@/domain/models';
@@ -57,10 +57,6 @@ const simulateValidSubmit = async (
   fireEvent.submit(form);
 
   await waitFor(() => form);
-};
-
-const startInRoute = (routeName: string): void => {
-  window.history.pushState({}, 'Test page', routeName);
 };
 
 describe('Signup Page', () => {
@@ -220,7 +216,7 @@ describe('Signup Page', () => {
   test('should call SaveAccessToken on success', async () => {
     const { sut, addAccountSpy, setCurrentAccountMock } = makeSut();
 
-    startInRoute('/signup');
+    UtilsHelper.startInRoute('/signup');
 
     await simulateValidSubmit(sut);
 
@@ -231,7 +227,7 @@ describe('Signup Page', () => {
   test('should go to signup page', () => {
     const { sut } = makeSut();
 
-    startInRoute('/login');
+    UtilsHelper.startInRoute('/login');
 
     const loginLink = sut.getByTestId('login-link');
     fireEvent.click(loginLink);
