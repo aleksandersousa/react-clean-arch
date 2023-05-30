@@ -32,133 +32,7 @@
       flex-wrap: wrap;
       justify-content: space-between;
 
-      li {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex-basis: 48%;
-
-        background-color: $white;
-        box-shadow: 0px 1px 3px -1px $black;
-
-        height: 250px;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
-
-        &:empty {
-          position: relative;
-          overflow: hidden;
-
-          background-repeat: no-repeat;
-          background-image: 
-            linear-gradient(to right, $disabledBg, $disabledBg),
-            linear-gradient(to right, $disabledBg, $disabledBg),
-            linear-gradient(to right, $disabledBg, $disabledBg),
-            linear-gradient(to right, $disabledBg, $disabledBg),
-            linear-gradient(to right, $disabledBg, $disabledBg);
-          background-position: 
-            24px 55px,
-            left 0 bottom 0,
-            108px 77px,
-            108px 97px,
-            108px 117px;
-          background-size: 
-            60px 100px,
-            100% 40px,
-            150px 16px,
-            140px 16px,
-            130px 16px;
-
-          &::after {
-            content: '';
-
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-
-            background-image: linear-gradient(to right, transparent, rgba($white, 0.2), transparent);
-            transform: translateX(-100%);
-            animation: shimmer 1.3s infinite;
-          }
-        }
-
-        .surveyContent {
-          position: relative;
-          
-          display: flex;
-          justify-content: space-between;
-          flex-grow: 1;
-
-          border-radius: 8px 8px 0 0;
-          background-repeat: no-repeat;
-          background-position: 0 0, 54 0;
-          background-size: 54px 100%, 100% 100%;
-          background-image: 
-            linear-gradient(to right, rgba($primaryLight, 0.1), rgba($primaryLight, 0.1)), 
-            linear-gradient(to right, $white, $white);
-
-          .iconWrap {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-          }
-
-          time {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-self: center;
-            align-items: center;
-            flex-shrink: 0;
-
-            background-color: $primaryLight;
-            color: $white;
-
-            border-radius: 8px;
-            margin-left: 1.5rem;
-            width: 60px;
-            height: 100px;
-
-            .day {
-              font-size: 40px;
-              font-weight: bold;
-            }
-            .month {
-              text-transform: lowercase;
-              margin: 0 0 4px;
-            }
-            .year {
-              font-size: 16px;
-            }
-          }
-
-          p {
-            font-size: 18px;
-            margin: 24px;
-            align-self: center;
-            flex-grow: 1;
-          }
-        }
-
-        footer {
-          background-color: $primary;
-          color: $white;
-
-          line-height: 40px;
-          text-transform: lowercase;
-          text-align: center;
-
-          border-radius: 0 0 8px 8px;
-
-          cursor: pointer;
-
-          &:hover {
-            background-color: $primaryDark;
-          }
-        }
-      }
+      
     }
   }
 }
@@ -170,17 +44,7 @@
 
       ul {
         flex-direction: column;
-
-        li {
-          flex-basis: 100%;
-        }
       }
     }
-  }
-}
-
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
   }
 }
