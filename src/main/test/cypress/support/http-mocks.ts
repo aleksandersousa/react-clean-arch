@@ -9,7 +9,7 @@ export const mockInvalidCredentialsError = (url: RegExp): void => {
     {
       statusCode: 401,
       body: {
-        error: faker.random.words(),
+        error: faker.word.words(),
       },
     }
   ).as('request');
@@ -24,7 +24,7 @@ export const mockUnexpectedError = (url: RegExp, method: string): void => {
     {
       statusCode: faker.helpers.arrayElement([400, 404, 500]),
       body: {
-        error: faker.random.words(),
+        error: faker.word.words(),
       },
     }
   ).as('request');
@@ -39,7 +39,7 @@ export const mockEmailInUseError = (url: RegExp): void => {
     {
       statusCode: 403,
       body: {
-        error: faker.random.words(),
+        error: faker.word.words(),
       },
     }
   ).as('request');

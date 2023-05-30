@@ -10,7 +10,7 @@ const { baseUrl } = Cypress.config();
 
 const populateFormFields = (): void => {
   cy.getByTestId('email').type(faker.internet.email());
-  cy.getByTestId('password').type(faker.random.alphaNumeric(5));
+  cy.getByTestId('password').type(faker.string.alphanumeric(5));
 };
 
 const simulateValidSubmit = (): void => {
@@ -31,10 +31,10 @@ describe('Login', () => {
   });
 
   it('Should present error state if form is invalid', () => {
-    cy.getByTestId('email').type(faker.random.word());
+    cy.getByTestId('email').type(faker.word.verb());
     testInputStatus('email', 'Valor inválido');
 
-    cy.getByTestId('password').type(faker.random.alphaNumeric(4));
+    cy.getByTestId('password').type(faker.string.alphanumeric(4));
     testInputStatus('password', 'Valor inválido');
 
     cy.getByTestId('submit').should('have.attr', 'disabled');

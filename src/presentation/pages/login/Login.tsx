@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Footer,
   FormStatus,
@@ -6,19 +6,19 @@ import {
   PublicHeader,
   SubmitButton,
 } from '@/presentation/components';
-import FormContext from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
-import { Authentication, UpdateCurrentAccount } from '@/domain/usecases';
+import { Authentication } from '@/domain/usecases';
 import { Link, useNavigate } from 'react-router-dom';
+import { ApiContext, FormContext } from '@/presentation/contexts';
 import Styles from './styles.scss';
 
 type Props = {
   validation: Validation;
   authentication: Authentication;
-  updateCurrentAccount: UpdateCurrentAccount;
 };
 
-const Login: React.FC<Props> = ({ validation, authentication, updateCurrentAccount }) => {
+const Login: React.FC<Props> = ({ validation, authentication }) => {
+  const { setCurrentAccount } = useContext(ApiContext);
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -46,7 +46,7 @@ const Login: React.FC<Props> = ({ validation, authentication, updateCurrentAccou
         password: state.password,
       });
 
-      await updateCurrentAccount.save(account);
+      setCurrentAccount(account);
 
       navigate('/');
     } catch (error) {

@@ -8,7 +8,7 @@ describe('first', () => {
   test('should return error if email is invalid', () => {
     const field = faker.database.column();
     const sut = makeSut(field);
-    const error = sut.validate({ [field]: faker.random.word() });
+    const error = sut.validate({ [field]: faker.word.verb() });
 
     expect(error).toEqual(new InvalidFieldError());
   });

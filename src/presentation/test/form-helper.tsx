@@ -43,7 +43,7 @@ export const testElementExists = (sut: RenderResult, fieldName: string): void =>
 export const populateField = (
   sut: RenderResult,
   fieldName: string,
-  value = faker.random.word()
+  value = faker.word.verb()
 ): void => {
   const input = sut.getByTestId(fieldName);
   fireEvent.input(input, { target: { value } });

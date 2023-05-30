@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useContext, useRef } from 'react';
-import formContext from '@/presentation/contexts/form/form-context';
+import { FormContext } from '@/presentation/contexts';
 import Styles from './styles.scss';
 
 type Props = React.DetailedHTMLProps<
@@ -10,7 +10,7 @@ type Props = React.DetailedHTMLProps<
 >;
 
 const Input: React.FC<Props> = ({ type, name, placeholder }: Props) => {
-  const { state, setState } = useContext(formContext);
+  const { state, setState } = useContext(FormContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const error = state[`${name}Error`] as string;
 

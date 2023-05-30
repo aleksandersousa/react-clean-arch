@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import formContext from '@/presentation/contexts/form/form-context';
+import { FormContext } from '@/presentation/contexts';
 import Styles from './styles.scss';
 import Spinner from '../spinner/Spinner';
 
 const FormStatus: React.FC = () => {
-  const { state } = useContext(formContext);
+  const { state } = useContext(FormContext);
 
   return (
     <div data-testid="error-wrap" className={Styles.formStatus}>

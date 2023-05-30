@@ -1,7 +1,7 @@
 import React from 'react';
 import { RenderResult, fireEvent, render } from '@testing-library/react';
-import FormContext from '@/presentation/contexts/form/form-context';
 import { faker } from '@faker-js/faker';
+import { FormContext } from '@/presentation/contexts';
 import Input from './Input';
 
 const makeSut = (fieldName: string): RenderResult =>

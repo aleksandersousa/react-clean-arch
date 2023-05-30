@@ -10,7 +10,7 @@ import {
 
 export const mockPostRequest = (): HttpPostParams => ({
   url: faker.internet.url(),
-  body: faker.random.word(),
+  body: faker.word.verb(),
 });
 
 export const mockGetRequest = (): HttpGetParams => ({
