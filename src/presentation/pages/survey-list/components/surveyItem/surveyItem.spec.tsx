@@ -3,13 +3,18 @@ import { mockSurveyModel } from '@/domain/test';
 import { IconName } from '@/presentation/components';
 import SurveyItem from './SurveyItem';
 
+const makeSut = (survey = mockSurveyModel()): void => {
+  render(<SurveyItem survey={survey} />);
+};
+
 describe('SurveyItem Component', () => {
   test('should render with correct values', () => {
-    const survey = mockSurveyModel();
-    survey.didAnswer = true;
-    survey.date = new Date('2020-01-10T00:00:00');
+    const survey = Object.assign(mockSurveyModel(), {
+      didAnswer: true,
+      date: new Date('2020-01-10T00:00:00'),
+    });
 
-    render(<SurveyItem survey={survey} />);
+    makeSut(survey);
 
     expect(screen.getByTestId('icon')).toHaveProperty('src', IconName.thumbUp);
     expect(screen.getByTestId('question')).toHaveTextContent(survey.question);
