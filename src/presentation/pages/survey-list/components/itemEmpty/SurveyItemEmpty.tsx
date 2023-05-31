@@ -4,9 +4,9 @@ import Styles from './styles.scss';
 const SurveyItemEmpty: React.FC = () => (
   <>
     <li className={Styles.surveyItemEmpty} />
-    <li />
-    <li />
-    <li />
+    <li className={Styles.surveyItemEmpty} />
+    <li className={Styles.surveyItemEmpty} />
+    <li className={Styles.surveyItemEmpty} />
   </>
 );
 
