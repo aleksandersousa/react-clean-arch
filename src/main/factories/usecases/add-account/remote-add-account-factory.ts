@@ -1,5 +1,4 @@
-import { makeAxiosHttpClient } from '@/main/factories/htpp/axios-http-client-factory';
-import { makeApiUrl } from '@/main/factories/htpp/api-url-factory';
+import { makeAxiosHttpClient, makeApiUrl } from '@/main/factories/htpp';
 import { RemoteAddAccount } from '@/data/usecases/add-account/remote-add-account';
 
 export const makeRemoteAddAccount = () => {
