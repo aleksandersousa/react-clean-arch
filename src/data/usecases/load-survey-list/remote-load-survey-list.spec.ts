@@ -1,6 +1,6 @@
 import { HttpGetClientSpy } from '@/data/test';
 import { faker } from '@faker-js/faker';
-import { UnexpectedError } from '@/domain/errors';
+import { AccessDeniedError, UnexpectedError } from '@/domain/errors';
 import { HttpStatusCode } from '@/data/protocols/http';
 import { SurveyModel } from '@/domain/models';
 import { mockSurveyListModel } from '@/domain/test';
@@ -36,7 +36,7 @@ describe('RemoteLoadSurveyList', () => {
 
     const promise = sut.loadAll();
 
-    await expect(promise).rejects.toThrow(new UnexpectedError());
+    await expect(promise).rejects.toThrow(new AccessDeniedError());
   });
 
   test('should throw UnexpectedError if HTTPGetClient return 404', async () => {
