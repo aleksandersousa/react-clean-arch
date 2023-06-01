@@ -4,6 +4,8 @@ import { LoadSurveyList } from '@/domain/usecases';
 import { SurveyModel } from '@/domain/models';
 import { mockSurveyListModel } from '@/domain/test';
 import { UnexpectedError } from '@/domain/errors';
+import { ApiContext } from '@/presentation/contexts';
+import { BrowserRouter } from 'react-router-dom';
 import SurveyList from './SurveyList';
 
 class LoadSurveyListSpy implements LoadSurveyList {
@@ -21,7 +23,13 @@ type SutTypes = {
 };
 
 const makeSut = (loadSurveyListSpy = new LoadSurveyListSpy()): SutTypes => {
-  render(<SurveyList loadSurveyList={loadSurveyListSpy} />);
+  render(
+    <ApiContext.Provider value={{ setCurrentAccount: jest.fn() }}>
+      <BrowserRouter>
+        <SurveyList loadSurveyList={loadSurveyListSpy} />
+      </BrowserRouter>
+    </ApiContext.Provider>
+  );
   return { loadSurveyListSpy };
 };
 
