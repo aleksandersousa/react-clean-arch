@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Footer, Header } from '@/presentation/components';
 import { LoadSurveyList } from '@/domain/usecases';
 import { SurveyModel } from '@/domain/models';
+import { useErrorHandler } from '@/presentation/hooks';
 import { Error, List, SurveyContext } from './components';
 import Styles from './styles.scss';
 
@@ -22,11 +23,15 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }) => {
     reload: false,
   });
 
+  const handleError = useErrorHandler((error: Error) => {
+    setState(prev => ({ ...prev, error: error.message }));
+  });
+
   useEffect(() => {
     loadSurveyList
       .loadAll()
       .then(surveys => setState(prev => ({ ...prev, surveys })))
-      .catch(error => setState(prev => ({ ...prev, error: error.message })));
+      .catch(handleError);
   }, [state.reload]);
 
   return (
