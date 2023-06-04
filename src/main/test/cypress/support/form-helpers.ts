@@ -14,7 +14,3 @@ export const testMainError = (error: string): void => {
   cy.getByTestId('spinner').should('not.exist');
   cy.getByTestId('main-error').should('contain.text', error);
 };
-
-export const testLocalStorageItem = (key: string): void => {
-  cy.window().then(window => assert.isOk(window.localStorage.getItem(key)));
-};

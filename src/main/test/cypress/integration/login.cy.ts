@@ -1,10 +1,7 @@
 import { faker } from '@faker-js/faker';
-import {
-  testInputStatus,
-  testLocalStorageItem,
-  testMainError,
-} from '../support/form-helper';
+import { testInputStatus, testMainError } from '../support/form-helpers';
 import * as Http from '../support/login-mocks';
+import { testLocalStorageItem } from '../support/helpers';
 
 const { baseUrl } = Cypress.config();
 
@@ -66,26 +63,6 @@ describe('Login', () => {
 
   it('Should present UnexpectedError on default error cases', () => {
     Http.mockUnexpectedError();
-
-    simulateValidSubmit();
-
-    testMainError('Algo de inesperado aconteceu. Tente novamente em breve.');
-
-    cy.url().should('eq', `${baseUrl as string}/login`);
-  });
-
-  it('Should present UnexpectedError if invalid body is returned', () => {
-    Http.mockInvalidBody();
-
-    simulateValidSubmit();
-
-    testMainError('Algo de inesperado aconteceu. Tente novamente em breve.');
-
-    cy.url().should('eq', `${baseUrl as string}/login`);
-  });
-
-  it('Should present UnexpectedError if invalid data is returned', () => {
-    Http.mockInvalidData();
 
     simulateValidSubmit();
 

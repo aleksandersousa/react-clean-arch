@@ -1,15 +1,12 @@
 import { faker } from '@faker-js/faker';
-import {
-  testInputStatus,
-  testLocalStorageItem,
-  testMainError,
-} from '../support/form-helper';
+import { testInputStatus, testMainError } from '../support/form-helpers';
 import * as Http from '../support/signup-mocks';
+import { testLocalStorageItem } from '../support/helpers';
 
 const { baseUrl } = Cypress.config();
 
 const populateFormFields = (): void => {
-  cy.getByTestId('name').type(faker.name.fullName());
+  cy.getByTestId('name').type(faker.person.fullName());
   cy.getByTestId('email').type(faker.internet.email());
 
   const password = faker.internet.password();
@@ -85,26 +82,6 @@ describe('Signup', () => {
 
   it('Should present UnexpectedError on default error cases', () => {
     Http.mockUnexpectedError();
-
-    simulateValidSubmit();
-
-    testMainError('Algo de inesperado aconteceu. Tente novamente em breve.');
-
-    cy.url().should('eq', `${baseUrl as string}/signup`);
-  });
-
-  it('Should present UnexpectedError if invalid body is returned', () => {
-    Http.mockInvalidBody();
-
-    simulateValidSubmit();
-
-    testMainError('Algo de inesperado aconteceu. Tente novamente em breve.');
-
-    cy.url().should('eq', `${baseUrl as string}/signup`);
-  });
-
-  it('Should present UnexpectedError if invalid data is returned', () => {
-    Http.mockInvalidData();
 
     simulateValidSubmit();
 

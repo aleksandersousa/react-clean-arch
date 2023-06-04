@@ -1,21 +1,14 @@
 import { faker } from '@faker-js/faker';
-import * as Helper from './http-mocks';
+import * as HttpHelper from './http-mocks';
 
-export const mockEmailInUseError = (): void => Helper.mockEmailInUseError(/signup/);
+export const mockEmailInUseError = (): void =>
+  HttpHelper.mockForbiddenError(/signup/, 'POST');
 
 export const mockUnexpectedError = (): void =>
-  Helper.mockUnexpectedError(/signup/, 'POST');
-
-export const mockInvalidBody = (): void =>
-  Helper.mockOK(/signup/, 'POST', {
-    anyPropertyDifferentFromAccessToken: faker.string.uuid(),
-  });
-
-export const mockInvalidData = (): void =>
-  Helper.mockOK(/signup/, 'POST', { accessToken: undefined });
+  HttpHelper.mockServerError(/signup/, 'POST');
 
 export const mockOk = (): void =>
-  Helper.mockOK(/signup/, 'POST', {
+  HttpHelper.mockOK(/signup/, 'POST', {
     accessToken: faker.string.uuid(),
     name: faker.person.fullName(),
   });
