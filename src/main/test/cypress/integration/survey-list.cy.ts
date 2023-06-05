@@ -2,6 +2,8 @@ import { faker } from '@faker-js/faker';
 import * as Helper from '../support/helpers';
 import * as HttpHelper from '../support/survey-list-mocks';
 
+const { baseUrl } = Cypress.config();
+
 describe('SurveyList', () => {
   beforeEach(() => {
     Helper.setLocalStorageItem('account', {
@@ -18,5 +20,12 @@ describe('SurveyList', () => {
       'contain.text',
       'Algo de inesperado aconteceu. Tente novamente em breve.'
     );
+  });
+
+  it('Should logout on AccessDeniedError', () => {
+    HttpHelper.mockAccessDeniedError();
+    cy.visit('');
+
+    cy.url().should('eq', `${baseUrl as string}/login`);
   });
 });
