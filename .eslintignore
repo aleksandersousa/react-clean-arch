@@ -1,8 +1,9 @@
 *.js
 *.scss
 *.json
-node_modules
 .vscode
+cypress.config.ts
+node_modules
 coverage
 public
-cypress.config.ts
+dist
