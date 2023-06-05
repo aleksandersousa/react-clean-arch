@@ -31,6 +31,27 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
     mainError: '',
   });
 
+  useEffect(() => {
+    validate('email');
+  }, [state.email]);
+  useEffect(() => {
+    validate('password');
+  }, [state.password]);
+
+  const validate = (field: string): void => {
+    const { email, password } = state;
+    const formData = { email, password };
+
+    setState(prev => ({
+      ...prev,
+      [`${field}Error`]: validation.validate(field, formData),
+    }));
+    setState(prev => ({
+      ...prev,
+      isFormInvalid: !!prev.emailError || !!prev.passwordError,
+    }));
+  };
+
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
@@ -53,20 +74,6 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
       setState(prev => ({ ...prev, isLoading: false, mainError: error.message }));
     }
   };
-
-  useEffect(() => {
-    const { email, password } = state;
-    const formData = { email, password };
-    const emailError = validation.validate('email', formData);
-    const passwordError = validation.validate('password', formData);
-
-    setState(prev => ({
-      ...prev,
-      emailError,
-      passwordError,
-      isFormInvalid: !!emailError || !!passwordError,
-    }));
-  }, [state.email, state.password]);
 
   return (
     <div className={Styles.loginWrap}>

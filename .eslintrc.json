@@ -81,6 +81,7 @@
       "no-console": "off",
       "no-shadow": "off",
       "no-plusplus": "off",
+      "no-use-before-define": "off",
       "no-useless-constructor": "off",
       "no-restricted-syntax": "off",
       "unused-imports/no-unused-imports": "error",
