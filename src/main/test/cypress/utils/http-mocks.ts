@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker';
 
+type Methods = 'POST' | 'PUT' | 'GET' | 'DELETE';
+
 export const mockUnauthorizedError = (url: RegExp): void => {
   cy.intercept(
     {
@@ -15,7 +17,7 @@ export const mockUnauthorizedError = (url: RegExp): void => {
   ).as('request');
 };
 
-export const mockServerError = (url: RegExp, method: string): void => {
+export const mockServerError = (url: RegExp, method: Methods): void => {
   cy.intercept(
     {
       method,
@@ -30,7 +32,7 @@ export const mockServerError = (url: RegExp, method: string): void => {
   ).as('request');
 };
 
-export const mockForbiddenError = (url: RegExp, method: string): void => {
+export const mockForbiddenError = (url: RegExp, method: Methods): void => {
   cy.intercept(
     {
       method,
@@ -45,7 +47,7 @@ export const mockForbiddenError = (url: RegExp, method: string): void => {
   ).as('request');
 };
 
-export const mockOK = (url: RegExp, method: string, response: any): void => {
+export const mockOK = (url: RegExp, method: Methods, response: any): void => {
   cy.intercept(
     {
       method,

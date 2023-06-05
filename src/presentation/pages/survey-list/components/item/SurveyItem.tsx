@@ -17,13 +17,15 @@ const SurveyItem: React.FC<Props> = ({ survey }) => {
 
         <time>
           <span data-testid="day" className={Styles.day}>
-            {survey.date.getDate().toString().padStart(2, '0')}
+            {(survey.date as Date).getDate().toString().padStart(2, '0')}
           </span>
           <span data-testid="month" className={Styles.month}>
-            {survey.date.toLocaleString('pt-BR', { month: 'short' }).replace('.', '')}
+            {(survey.date as Date)
+              .toLocaleString('pt-BR', { month: 'short' })
+              .replace('.', '')}
           </span>
           <span data-testid="year" className={Styles.year}>
-            {survey.date.getFullYear()}
+            {(survey.date as Date).getFullYear()}
           </span>
         </time>
 

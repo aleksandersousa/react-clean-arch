@@ -1,7 +1,7 @@
 export type SurveyModel = {
   id: string;
   question: string;
-  date: Date;
+  date: Date | string;
   didAnswer: boolean;
   answers: {
     image?: string;

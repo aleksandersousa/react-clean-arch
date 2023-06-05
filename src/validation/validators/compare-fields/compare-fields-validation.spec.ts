@@ -13,7 +13,7 @@ describe('CompareFieldsValidation', () => {
     const sut = makeSut(field, fieldToCompare);
     const error = sut.validate({
       [field]: faker.word.words(3),
-      [fieldToCompare]: faker.word.verb(),
+      [fieldToCompare]: faker.word.words(1),
     });
 
     expect(error).toEqual(new InvalidFieldError());
