@@ -36,4 +36,12 @@ describe('SurveyList', () => {
     const { name } = Helper.getLocalStorageItem('account');
     cy.getByTestId('username').should('contain.text', name);
   });
+
+  it('Should logout on logout link click', () => {
+    HttpHelper.mockUnexpectedError();
+    cy.visit('');
+
+    cy.getByTestId('logout').click();
+    cy.url().should('eq', `${baseUrl as string}/login`);
+  });
 });
