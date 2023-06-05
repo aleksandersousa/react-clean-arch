@@ -1,9 +1,14 @@
 import { faker } from '@faker-js/faker';
-import { testInputStatus, testMainError } from '../support/form-helpers';
-import * as Http from '../support/login-mocks';
-import { testLocalStorageItem } from '../support/helpers';
+import { testInputStatus, testMainError } from '../utils/form-helpers';
+import { testLocalStorageItem } from '../utils/helpers';
+import * as Http from '../utils/http-mocks';
 
 const { baseUrl } = Cypress.config();
+
+const path = /login/;
+const mockInvalidCredentialsError = (): void => Http.mockUnauthorizedError(path);
+const mockUnexpectedError = (): void => Http.mockServerError(path, 'POST');
+const mockSuccess = async (): Promise<void> => Http.mockOK(path, 'POST', 'account');
 
 const populateFormFields = (): void => {
   cy.getByTestId('email').type(faker.internet.email());
@@ -52,7 +57,7 @@ describe('Login', () => {
   });
 
   it('Should present InvalidCredentialsError on 401', () => {
-    Http.mockInvalidCredentialsError();
+    mockInvalidCredentialsError();
 
     simulateValidSubmit();
 
@@ -62,7 +67,7 @@ describe('Login', () => {
   });
 
   it('Should present UnexpectedError on default error cases', () => {
-    Http.mockUnexpectedError();
+    mockUnexpectedError();
 
     simulateValidSubmit();
 
@@ -72,7 +77,7 @@ describe('Login', () => {
   });
 
   it('Should save account if valid credentials are provided', () => {
-    Http.mockOk();
+    mockSuccess();
 
     simulateValidSubmit();
 
@@ -85,7 +90,7 @@ describe('Login', () => {
   });
 
   it('Should prevent multiple submits', () => {
-    Http.mockOk();
+    mockSuccess();
 
     populateFormFields();
     cy.getByTestId('submit').dblclick();
@@ -94,7 +99,7 @@ describe('Login', () => {
   });
 
   it('Should not call submit if form is invalid', () => {
-    Http.mockOk();
+    mockSuccess();
 
     cy.getByTestId('email').type(faker.internet.email());
     cy.getByTestId('email').type('{enter}');

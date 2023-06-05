@@ -53,7 +53,7 @@ export const mockOK = (url: RegExp, method: string, response: any): void => {
     },
     {
       statusCode: 200,
-      body: response,
+      fixture: response,
     }
   ).as('request');
 };

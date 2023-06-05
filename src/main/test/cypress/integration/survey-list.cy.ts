@@ -1,19 +1,21 @@
-import { faker } from '@faker-js/faker';
-import * as Helper from '../support/helpers';
-import * as HttpHelper from '../support/survey-list-mocks';
+import * as Helper from '../utils/helpers';
+import * as Http from '../utils/http-mocks';
 
 const { baseUrl } = Cypress.config();
 
+const path = /surveys/;
+const mockUnexpectedError = (): void => Http.mockServerError(path, 'GET');
+const mockAccessDeniedError = (): void => Http.mockForbiddenError(path, 'GET');
+
 describe('SurveyList', () => {
   beforeEach(() => {
-    Helper.setLocalStorageItem('account', {
-      accessToken: faker.string.uuid(),
-      name: faker.person.fullName(),
+    cy.fixture('account').then(account => {
+      Helper.setLocalStorageItem('account', account);
     });
   });
 
   it('Should present error on UnexpectedError', () => {
-    HttpHelper.mockUnexpectedError();
+    mockUnexpectedError();
     cy.visit('');
 
     cy.getByTestId('error').should(
@@ -23,14 +25,14 @@ describe('SurveyList', () => {
   });
 
   it('Should logout on AccessDeniedError', () => {
-    HttpHelper.mockAccessDeniedError();
+    mockAccessDeniedError();
     cy.visit('');
 
     cy.url().should('eq', `${baseUrl as string}/login`);
   });
 
   it('Should present correct username', () => {
-    HttpHelper.mockUnexpectedError();
+    mockUnexpectedError();
     cy.visit('');
 
     const { name } = Helper.getLocalStorageItem('account');
@@ -38,7 +40,7 @@ describe('SurveyList', () => {
   });
 
   it('Should logout on logout link click', () => {
-    HttpHelper.mockUnexpectedError();
+    mockUnexpectedError();
     cy.visit('');
 
     cy.getByTestId('logout').click();
