@@ -1,6 +1,8 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
+  video: false,
+  screenshotOnRunFailure: false,
   fixturesFolder: 'src/main/test/cypress/fixtures',
   e2e: {
     // We've imported your old cypress plugins here.

@@ -16,15 +16,12 @@ jobs:
 
     steps:
       - name: Checkout to the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up NodeJS environment
         uses: actions/setup-node@v2
         with:
-          # Reads the node version from the .nvmrc file itself
           node-version: 18
-          # The node version can be hard-coded
-          # node-version: 14
 
       # Consider this as an add on to optimize the execution of actions
       - name: Cache node modules
@@ -33,7 +30,6 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          # yarn cache files are stored in `~/.yarn` on Linux/macOS
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
@@ -50,3 +46,18 @@ jobs:
 
       - name: Coveralls
         uses: coverallsapp/github-action@v2
+
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    container: cypress/browsers:chrome69
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: yarn test:cypress:ci
+          browser: chrome
