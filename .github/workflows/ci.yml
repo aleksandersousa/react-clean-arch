@@ -50,4 +50,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
+          install-command: yarn cypress install --force
           start: yarn test:cypress:ci
