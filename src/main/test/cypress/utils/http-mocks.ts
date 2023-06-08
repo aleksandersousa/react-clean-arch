@@ -47,7 +47,12 @@ export const mockForbiddenError = (url: RegExp, method: Methods): void => {
   ).as('request');
 };
 
-export const mockOK = (url: RegExp, method: Methods, response: any): void => {
+export const mockOK = (
+  url: RegExp,
+  method: Methods,
+  fixture: any,
+  alias = 'request'
+): void => {
   cy.intercept(
     {
       method,
@@ -55,7 +60,7 @@ export const mockOK = (url: RegExp, method: Methods, response: any): void => {
     },
     {
       statusCode: 200,
-      fixture: response,
+      fixture,
     }
-  ).as('request');
+  ).as(alias);
 };

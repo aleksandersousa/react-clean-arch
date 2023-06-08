@@ -8,7 +8,10 @@ const { baseUrl } = Cypress.config();
 const path = /login/;
 const mockInvalidCredentialsError = (): void => Http.mockUnauthorizedError(path);
 const mockUnexpectedError = (): void => Http.mockServerError(path, 'POST');
-const mockSuccess = async (): Promise<void> => Http.mockOK(path, 'POST', 'account');
+const mockSuccess = (): void => {
+  Http.mockOK(/api\/surveys/, 'GET', 'survey-list');
+  Http.mockOK(path, 'POST', 'account', 'loginRequest');
+};
 
 const populateFormFields = (): void => {
   cy.getByTestId('email').type(faker.internet.email());
@@ -78,11 +81,7 @@ describe('Login', () => {
 
   it('Should save account if valid credentials are provided', () => {
     mockSuccess();
-
     simulateValidSubmit();
-
-    cy.getByTestId('spinner').should('not.exist');
-    cy.getByTestId('main-error').should('not.exist');
 
     cy.url().should('eq', `${baseUrl as string}/`);
 
@@ -95,9 +94,9 @@ describe('Login', () => {
     populateFormFields();
     cy.getByTestId('submit').dblclick();
 
-    cy.wait('@request');
+    cy.wait('@loginRequest');
 
-    cy.get('@request.all').should('have.length', 1);
+    cy.get('@loginRequest.all').should('have.length', 1);
   });
 
   it('Should not call submit if form is invalid', () => {
