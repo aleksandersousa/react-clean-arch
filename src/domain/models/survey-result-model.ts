@@ -7,6 +7,6 @@ export type SurveyResultAnswer = {
 
 export type SurveyResultModel = {
   question: string;
-  date: string;
+  date: Date;
   answers: SurveyResultAnswer[];
 };
