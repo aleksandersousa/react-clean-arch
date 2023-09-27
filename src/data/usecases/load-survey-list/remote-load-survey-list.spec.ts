@@ -18,7 +18,7 @@ const makeSut = (url = faker.internet.url()): SutTypes => {
 };
 
 describe('RemoteLoadSurveyList', () => {
-  test('should call HttpGetClient with correct URL', async () => {
+  test('Should call HttpGetClient with correct URL', async () => {
     const url = faker.internet.url();
 
     const { sut, httpGetClientSpy } = makeSut(url);
@@ -27,7 +27,7 @@ describe('RemoteLoadSurveyList', () => {
     expect(httpGetClientSpy.url).toBe(url);
   });
 
-  test('Should throw UnexpectedError if HTTPGetClient return 403', async () => {
+  test('Should throw UnexpectedError if HTTPGetClient returns 403', async () => {
     const { sut, httpGetClientSpy } = makeSut();
     httpGetClientSpy.response = {
       statusCode: HttpStatusCode.forbidden,
@@ -38,7 +38,7 @@ describe('RemoteLoadSurveyList', () => {
     await expect(promise).rejects.toThrow(new AccessDeniedError());
   });
 
-  test('Should throw UnexpectedError if HTTPGetClient return 404', async () => {
+  test('Should throw UnexpectedError if HTTPGetClient returns 404', async () => {
     const { sut, httpGetClientSpy } = makeSut();
     httpGetClientSpy.response = {
       statusCode: HttpStatusCode.notFound,
@@ -49,7 +49,7 @@ describe('RemoteLoadSurveyList', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
-  test('should throw UnexpectedError if HTTPGetClient return 404', async () => {
+  test('Should throw UnexpectedError if HTTPGetClient returns 500', async () => {
     const { sut, httpGetClientSpy } = makeSut();
     httpGetClientSpy.response = {
       statusCode: HttpStatusCode.serverError,
@@ -60,7 +60,7 @@ describe('RemoteLoadSurveyList', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
-  test('should return a list of SurveyModels if HTTPGetClient returns 200', async () => {
+  test('Should return a list of SurveyModels if HTTPGetClient returns 200', async () => {
     const { sut, httpGetClientSpy } = makeSut();
     const httpResult = mockRemoteSurveyListModel();
 
@@ -96,7 +96,7 @@ describe('RemoteLoadSurveyList', () => {
     ]);
   });
 
-  test('should return empty list if HTTPGetClient returns 204', async () => {
+  test('Should return empty list if HTTPGetClient returns 204', async () => {
     const { sut, httpGetClientSpy } = makeSut();
 
     httpGetClientSpy.response = {
