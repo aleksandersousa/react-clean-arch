@@ -4,7 +4,7 @@ import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { HttpStatusCode } from '@/data/protocols/http';
 import { AccountModel } from '@/domain/models';
 import { mockAccountModel, mockAuthentication } from '@/domain/test';
-import RemoteAuthentication from './remote-authentication';
+import { RemoteAuthentication } from './remote-authentication';
 
 type SutTypes = {
   sut: RemoteAuthentication;
