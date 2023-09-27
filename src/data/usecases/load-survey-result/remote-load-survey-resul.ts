@@ -1,4 +1,5 @@
-import { HttpGetClient } from '@/data/protocols/http';
+import { HttpGetClient, HttpStatusCode } from '@/data/protocols/http';
+import { AccessDeniedError, UnexpectedError } from '@/domain/errors';
 import { SurveyResultModel } from '@/domain/models';
 import { LoadSurveyResult } from '@/domain/usecases';
 
@@ -9,7 +10,15 @@ export class RemoteLoadSurveyResult implements LoadSurveyResult {
   ) {}
 
   async load(): Promise<SurveyResultModel> {
-    await this.httpGetClient.get({ url: this.url });
-    return { answers: [], date: new Date(), question: 'question' };
+    const httpResponse = await this.httpGetClient.get({ url: this.url });
+
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok:
+        return { answers: [], date: new Date(), question: 'question' };
+      case HttpStatusCode.forbidden:
+        throw new AccessDeniedError();
+      default:
+        throw new UnexpectedError();
+    }
   }
 }
