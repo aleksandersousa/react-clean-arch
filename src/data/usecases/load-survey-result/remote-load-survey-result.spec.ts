@@ -1,4 +1,4 @@
-import { HttpGetClientSpy } from '@/data/test';
+import { HttpGetClientSpy, mockRemoteSurveyResultModel } from '@/data/test';
 import { SurveyResultModel } from '@/domain/models';
 import { faker } from '@faker-js/faker';
 import { HttpStatusCode } from '@/data/protocols/http';
@@ -58,5 +58,23 @@ describe('RemoteLoadSurveyResult', () => {
     const promise = sut.load();
 
     await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('Should return a SurveyResultModel if HTTPGetClient returns 200', async () => {
+    const { sut, httpGetClientSpy } = makeSut();
+    const httpResult = mockRemoteSurveyResultModel();
+
+    httpGetClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult,
+    };
+
+    const surveyResult = await sut.load();
+
+    expect(surveyResult).toEqual({
+      question: httpResult.question,
+      answers: httpResult.answers,
+      date: new Date(httpResult.date),
+    });
   });
 });

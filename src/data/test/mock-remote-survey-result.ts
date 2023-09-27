@@ -6,7 +6,7 @@ export const mockRemoteSurveyResultModel = (): SurveyResultModel => ({
   date: faker.date.recent().toISOString(),
   answers: [
     {
-      image: faker.internet.avatar(),
+      image: faker.internet.url(),
       answer: faker.word.words(4),
       count: faker.number.int(),
       percent: faker.number.float(),
