@@ -100,9 +100,14 @@
       "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
       "arrow-parens": "off",
       "new-cap": "off",
-      "comma-dangle": "off",
+      "comma-dangle": [2, "always-multiline"],
       "func-names": "off",
-      "prettier/prettier": "error"
+      "prettier/prettier": [
+        "error",
+        {
+          "trailingComma": "all"
+        }
+      ]
     },
     "settings": {
       "react": {
