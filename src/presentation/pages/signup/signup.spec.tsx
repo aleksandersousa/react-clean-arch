@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { AddAccountSpy, Helper, UtilsHelper, ValidationStub } from '@/presentation/test';

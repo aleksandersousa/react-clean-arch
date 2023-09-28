@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import { UtilsHelper } from '@/presentation/test';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';

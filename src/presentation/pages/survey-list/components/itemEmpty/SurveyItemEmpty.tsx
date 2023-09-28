@@ -1,4 +1,3 @@
-import React from 'react';
 import Styles from './styles.scss';
 
 const SurveyItemEmpty: React.FC = () => (

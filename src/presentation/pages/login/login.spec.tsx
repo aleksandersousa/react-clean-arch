@@ -1,5 +1,4 @@
 /* eslint-disable comma-dangle */
-import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { faker } from '@faker-js/faker';

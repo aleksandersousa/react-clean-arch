@@ -1,4 +1,3 @@
-import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { LoadSurveyListSpy, mockAccountModel } from '@/domain/test';
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors';

@@ -1116,6 +1116,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-flip-move@^2.9.12":
+  version "2.9.12"
+  resolved "https://registry.yarnpkg.com/@types/react-flip-move/-/react-flip-move-2.9.12.tgz#5a6270a44b3d5b3ad6dcc3f105823c0c26001039"
+  integrity sha512-NoQXHUFwboxbTV1NWf55ztoESiX/ShHUySG8uRCiu8ExBH+K033mRHAnBHAK8izVsH/eSfA3/IA1o1CqHA8QGg==
+  dependencies:
+    react-flip-move "*"
+
 "@types/react-router-dom@^5.3.3":
   version "5.3.3"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.3.3.tgz#e9d6b4a66fcdbd651a5f106c2656a30088cc1e83"
@@ -6786,6 +6793,11 @@ react-dom@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-flip-move@*, react-flip-move@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/react-flip-move/-/react-flip-move-3.0.5.tgz#8b87510ad32ebef01ebca94902b445f456bbc0f7"
+  integrity sha512-Mf4XpbkUNZy9eu80iXXFIjToDvw+bnHxmKHVoositbMpV87O/EQswnXUqVovRHoTx/F+4dE+p//PyJnAT7OtPA==
 
 react-is@^16.13.1:
   version "16.13.1"

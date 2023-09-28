@@ -1,4 +1,3 @@
-import React from 'react';
 import { RenderResult, fireEvent, render } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
 import { FormContext } from '@/presentation/contexts';
