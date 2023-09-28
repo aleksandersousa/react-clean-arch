@@ -10,9 +10,17 @@ type Props = {
   loadSurveyResult: LoadSurveyResult;
 };
 
+export type State = {
+  surveyResult: SurveyResultModel;
+  error: string;
+  isLoading;
+  reload: boolean;
+};
+
 const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
-  const [state, setState] = useState({
+  const [state, setState] = useState<State>({
     isLoading: false,
+    reload: false,
     error: '',
     surveyResult: null as SurveyResultModel,
   });
@@ -26,7 +34,16 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
       .load()
       .then(surveyResult => setState(prev => ({ ...prev, surveyResult })))
       .catch(handleError);
-  }, []);
+  }, [state.reload]);
+
+  const reload = (): void => {
+    setState((prev: State) => ({
+      surveyResult: null,
+      error: '',
+      isLoading: false,
+      reload: !prev.reload,
+    }));
+  };
 
   return (
     <div className={Styles.surveyResultWrap}>
@@ -71,14 +88,7 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
 
         {state.isLoading && <Loading />}
 
-        {state.error && (
-          <Error
-            error={state.error}
-            reload={(): void => {
-              console.log('error');
-            }}
-          />
-        )}
+        {state.error && <Error error={state.error} reload={reload} />}
       </div>
 
       <Footer />
