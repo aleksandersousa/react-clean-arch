@@ -1,4 +1,4 @@
-import { Icon, IconName } from '@/presentation/components';
+import { Calendar, Icon, IconName } from '@/presentation/components';
 import { SurveyModel } from '@/domain/models';
 import Styles from './styles.scss';
 
@@ -14,19 +14,7 @@ const SurveyItem: React.FC<Props> = ({ survey }) => {
       <div className={Styles.surveyContent}>
         <Icon className={Styles.iconWrap} iconName={iconName} />
 
-        <time>
-          <span data-testid="day" className={Styles.day}>
-            {(survey.date as Date).getDate().toString().padStart(2, '0')}
-          </span>
-          <span data-testid="month" className={Styles.month}>
-            {(survey.date as Date)
-              .toLocaleString('pt-BR', { month: 'short' })
-              .replace('.', '')}
-          </span>
-          <span data-testid="year" className={Styles.year}>
-            {(survey.date as Date).getFullYear()}
-          </span>
-        </time>
+        <Calendar date={survey.date as Date} className={Styles.calendarWrap} />
 
         <p data-testid="question">{survey.question}</p>
       </div>

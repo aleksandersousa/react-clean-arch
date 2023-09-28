@@ -9,3 +9,4 @@ export { default as Header } from './header/Header';
 export { default as Icon, IconName } from './icon/Icon';
 export { default as PrivateRoute } from './privateRoute/PrivateRoute';
 export { default as Loading } from './loading/Loading';
+export { default as Calendar } from './calendar/Calendar';

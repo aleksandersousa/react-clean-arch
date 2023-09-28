@@ -73,33 +73,9 @@
       right: -10px;
     }
 
-    time {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .calendarWrap {
+      margin-left: 24px;
       align-self: center;
-      align-items: center;
-      flex-shrink: 0;
-
-      background-color: $primaryLight;
-      color: $white;
-
-      border-radius: 8px;
-      margin-left: 1.5rem;
-      width: 60px;
-      height: 100px;
-
-      .day {
-        font-size: 40px;
-        font-weight: bold;
-      }
-      .month {
-        text-transform: lowercase;
-        margin: 0 0 4px;
-      }
-      .year {
-        font-size: 16px;
-      }
     }
 
     p {
