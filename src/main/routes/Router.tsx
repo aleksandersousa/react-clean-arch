@@ -1,13 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { MakeLogin, MakeSignup, MakeSurveyList } from '@/main/factories/pages';
+import {
+  MakeLogin,
+  MakeSignup,
+  MakeSurveyList,
+  MakeSurveyResult,
+} from '@/main/factories/pages';
 import { ApiContext } from '@/presentation/contexts';
 import {
   getCurrentAccountAdapter,
   setCurrentAccountAdapter,
 } from '@/main/adapters/current-account-adapter';
 import { PrivateRoute } from '@/presentation/components';
-import { SurveyResult } from '@/presentation/pages';
 
 const Router: React.FC = () => (
   <ApiContext.Provider
@@ -23,7 +27,7 @@ const Router: React.FC = () => (
 
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<MakeSurveyList />} />
-          <Route path="/surveys" element={<SurveyResult />} />
+          <Route path="/surveys/:id" element={<MakeSurveyResult />} />
         </Route>
       </Routes>
     </BrowserRouter>
