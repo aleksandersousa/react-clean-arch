@@ -7,31 +7,35 @@ const SurveyResult: React.FC = () => (
     <Header />
 
     <div data-testid="content-wrap" className={Styles.contentWrap}>
-      <hgroup>
-        <Calendar date={new Date()} className={Styles.calendarWrap} />
+      {false && (
+        <>
+          <hgroup>
+            <Calendar date={new Date()} className={Styles.calendarWrap} />
 
-        <h2>Qual é seu framework web favorito?</h2>
-      </hgroup>
+            <h2>Qual é seu framework web favorito?</h2>
+          </hgroup>
 
-      <FlipMove className={Styles.answersList}>
-        <li>
-          <img src="" alt="" />
-          <span className={Styles.answer}>ReactJS</span>
-          <span className={Styles.percent}>50%</span>
-        </li>
-        <li className={Styles.active}>
-          <img src="" alt="" />
-          <span className={Styles.answer}>ReactJS</span>
-          <span className={Styles.percent}>50%</span>
-        </li>
-        <li>
-          <img src="" alt="" />
-          <span className={Styles.answer}>ReactJS</span>
-          <span className={Styles.percent}>50%</span>
-        </li>
-      </FlipMove>
+          <FlipMove className={Styles.answersList}>
+            <li>
+              <img src="" alt="" />
+              <span className={Styles.answer}>ReactJS</span>
+              <span className={Styles.percent}>50%</span>
+            </li>
+            <li className={Styles.active}>
+              <img src="" alt="" />
+              <span className={Styles.answer}>ReactJS</span>
+              <span className={Styles.percent}>50%</span>
+            </li>
+            <li>
+              <img src="" alt="" />
+              <span className={Styles.answer}>ReactJS</span>
+              <span className={Styles.percent}>50%</span>
+            </li>
+          </FlipMove>
 
-      <button type="button">Voltar</button>
+          <button type="button">Voltar</button>
+        </>
+      )}
 
       {false && <Loading />}
     </div>
