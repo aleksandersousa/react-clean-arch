@@ -10,11 +10,13 @@ export const mockRemoteSurveyResultModel = (): SurveyResultModel => ({
       answer: faker.word.words(4),
       count: faker.number.int(),
       percent: faker.number.float(),
+      isCurrentAccountAnswer: faker.datatype.boolean(),
     },
     {
       answer: faker.word.words(4),
       count: faker.number.int(),
       percent: faker.number.float(),
+      isCurrentAccountAnswer: faker.datatype.boolean(),
     },
   ],
 });
