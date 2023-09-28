@@ -8,6 +8,7 @@ import {
 } from '@/domain/test';
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/models';
+import { UtilsHelper } from '@/presentation/test';
 import SurveyResult from './SurveyResult';
 
 type SutTypes = {
@@ -136,5 +137,17 @@ describe('SurveyResult Component', () => {
     } else {
       await waitFor(() => screen.getByTestId('survey-result'));
     }
+  });
+
+  test('Should go to SurveyList on back button click', async () => {
+    makeSut();
+
+    await waitFor(() => screen.getByTestId('survey-result'));
+
+    UtilsHelper.startInRoute(`/surveys/any_id`);
+
+    fireEvent.click(screen.getByTestId('back-button'));
+
+    expect(window.location.pathname).toBe(`/`);
   });
 });
