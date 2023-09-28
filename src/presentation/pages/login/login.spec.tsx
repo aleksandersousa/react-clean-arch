@@ -181,8 +181,7 @@ describe('Login Page', () => {
 
     UtilsHelper.startInRoute('/login');
 
-    const registerLink = screen.getByTestId('signup-link');
-    fireEvent.click(registerLink);
+    fireEvent.click(screen.getByTestId('signup-link'));
 
     expect(window.location.pathname).toBe('/signup');
   });
