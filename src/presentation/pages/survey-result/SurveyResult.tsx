@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Calendar, Error, Footer, Header, Loading } from '@/presentation/components';
 import { SurveyResultModel } from '@/domain/models';
 import { LoadSurveyResult } from '@/domain/usecases';
+import { useErrorHandler } from '@/presentation/hooks';
 import Styles from './styles.scss';
 
 type Props = {
@@ -16,11 +17,15 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
     surveyResult: null as SurveyResultModel,
   });
 
+  const handleError = useErrorHandler((error: Error) => {
+    setState(prev => ({ ...prev, surveyResult: null, error: error.message }));
+  });
+
   useEffect(() => {
     loadSurveyResult
       .load()
       .then(surveyResult => setState(prev => ({ ...prev, surveyResult })))
-      .catch();
+      .catch(handleError);
   }, []);
 
   return (
@@ -65,6 +70,7 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
         )}
 
         {state.isLoading && <Loading />}
+
         {state.error && (
           <Error
             error={state.error}
