@@ -6,17 +6,14 @@ import {
   mockAccountModel,
   mockSurveyResultModel,
 } from '@/domain/test';
+import { UnexpectedError } from '@/domain/errors';
 import SurveyResult from './SurveyResult';
 
 type SutTypes = {
   loadSurveyResultSpy: LoadSurveyResultSpy;
 };
 
-const makeSut = (surveyResult = mockSurveyResultModel()): SutTypes => {
-  const loadSurveyResultSpy = new LoadSurveyResultSpy();
-  loadSurveyResultSpy.surveyResult = surveyResult;
-  // const setCurrentAccountMock = jest.fn();
-
+const makeSut = (loadSurveyResultSpy = new LoadSurveyResultSpy()): SutTypes => {
   render(
     <ApiContext.Provider
       value={{
@@ -59,13 +56,18 @@ describe('SurveyResult Component', () => {
       ...mockSurveyResultModel(),
       date: new Date('2020-01-10T00:00:00'),
     };
-    makeSut(surveyResult);
+
+    const loadSurveyResultSpy = new LoadSurveyResultSpy();
+    loadSurveyResultSpy.surveyResult = surveyResult;
+
+    makeSut(loadSurveyResultSpy);
 
     await waitFor(() => screen.getByTestId('survey-result'));
 
     expect(screen.getByTestId('day')).toHaveTextContent('10');
     expect(screen.getByTestId('month')).toHaveTextContent('jan');
     expect(screen.getByTestId('year')).toHaveTextContent('2020');
+
     expect(screen.getByTestId('question')).toHaveTextContent(surveyResult.question);
     expect(screen.getByTestId('answers').childElementCount).toBe(2);
 
@@ -84,5 +86,19 @@ describe('SurveyResult Component', () => {
     const percents = screen.queryAllByTestId('percent');
     expect(percents[0]).toHaveTextContent(`${surveyResult.answers[0].percent}%`);
     expect(percents[1]).toHaveTextContent(`${surveyResult.answers[1].percent}%`);
+  });
+
+  test('should render error on UnexpectedError', async () => {
+    const error = new UnexpectedError();
+    const loadSurveyResultSpy = new LoadSurveyResultSpy();
+    jest.spyOn(loadSurveyResultSpy, 'load').mockRejectedValueOnce(error);
+
+    makeSut(loadSurveyResultSpy);
+
+    await waitFor(() => screen.getByTestId('error'));
+
+    expect(screen.queryByTestId('question')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
+    expect(screen.getByTestId('error')).toHaveTextContent(error.message);
   });
 });
