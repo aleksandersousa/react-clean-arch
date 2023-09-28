@@ -4,6 +4,7 @@ import { Calendar, Error, Footer, Header, Loading } from '@/presentation/compone
 import { SurveyResultModel } from '@/domain/models';
 import { LoadSurveyResult } from '@/domain/usecases';
 import { useErrorHandler } from '@/presentation/hooks';
+import { useNavigate } from 'react-router-dom';
 import Styles from './styles.scss';
 
 type Props = {
@@ -13,11 +14,13 @@ type Props = {
 export type State = {
   surveyResult: SurveyResultModel;
   error: string;
-  isLoading;
+  isLoading: boolean;
   reload: boolean;
 };
 
 const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
+  const navigate = useNavigate();
+
   const [state, setState] = useState<State>({
     isLoading: false,
     reload: false,
@@ -44,6 +47,8 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
       reload: !prev.reload,
     }));
   };
+
+  const goBack = (): void => navigate('/');
 
   return (
     <div className={Styles.surveyResultWrap}>
@@ -82,7 +87,9 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }) => {
               })}
             </FlipMove>
 
-            <button type="button">Voltar</button>
+            <button data-testid="back-button" type="button" onClick={goBack}>
+              Voltar
+            </button>
           </>
         )}
 
