@@ -1,15 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ApiContext } from '@/presentation/contexts';
-import { mockAccountModel } from '@/domain/test';
+import { LoadSurveyResultSpy, mockAccountModel } from '@/domain/test';
 import SurveyResult from './SurveyResult';
 
-// type SutTypes = {
-//   loadSurveyListSpy: LoadSurveyListSpy;
-//   setCurrentAccountMock: (account: AccountModel) => void;
-// };
+type SutTypes = {
+  loadSurveyResultSpy: LoadSurveyResultSpy;
+};
 
-const makeSut = () => {
+const makeSut = (loadSurveyResultSpy = new LoadSurveyResultSpy()): SutTypes => {
   // const setCurrentAccountMock = jest.fn();
 
   render(
@@ -20,16 +19,16 @@ const makeSut = () => {
       }}
     >
       <BrowserRouter>
-        <SurveyResult />
+        <SurveyResult loadSurveyResult={loadSurveyResultSpy} />
       </BrowserRouter>
       ,
     </ApiContext.Provider>,
   );
-  // return { loadSurveyListSpy, setCurrentAccountMock };
+  return { loadSurveyResultSpy };
 };
 
 describe('SurveyResult Component', () => {
-  test('Should present correct initial state', () => {
+  test('Should present correct initial state', async () => {
     makeSut();
 
     const surveyResult = screen.getByTestId('survey-result');
@@ -37,5 +36,15 @@ describe('SurveyResult Component', () => {
     expect(surveyResult.childElementCount).toBe(0);
     expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
     expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+
+    await waitFor(() => surveyResult);
+  });
+
+  test('should call LoadSurveyResult', async () => {
+    const { loadSurveyResultSpy } = makeSut();
+
+    await waitFor(() => screen.getByTestId('survey-result'));
+
+    expect(loadSurveyResultSpy.callsCount).toBe(1);
   });
 });
