@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ApiContext } from '@/presentation/contexts';
 import {
@@ -47,7 +47,7 @@ describe('SurveyResult Component', () => {
     await waitFor(() => surveyResult);
   });
 
-  test('should call LoadSurveyResult', async () => {
+  test('Should call LoadSurveyResult', async () => {
     const { loadSurveyResultSpy } = makeSut();
 
     await waitFor(() => screen.getByTestId('survey-result'));
@@ -55,7 +55,7 @@ describe('SurveyResult Component', () => {
     expect(loadSurveyResultSpy.callsCount).toBe(1);
   });
 
-  test('should present SurveyResult data on success', async () => {
+  test('Should present SurveyResult data on success', async () => {
     const surveyResult = {
       ...mockSurveyResultModel(),
       date: new Date('2020-01-10T00:00:00'),
@@ -92,7 +92,7 @@ describe('SurveyResult Component', () => {
     expect(percents[1]).toHaveTextContent(`${surveyResult.answers[1].percent}%`);
   });
 
-  test('should render error on UnexpectedError', async () => {
+  test('Should render error on UnexpectedError', async () => {
     const error = new UnexpectedError();
     const loadSurveyResultSpy = new LoadSurveyResultSpy();
     jest.spyOn(loadSurveyResultSpy, 'load').mockRejectedValueOnce(error);
@@ -118,5 +118,23 @@ describe('SurveyResult Component', () => {
 
     expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined);
     expect(window.location.pathname).toBe('/login');
+  });
+
+  test('should call LoadSurveyResult on reload', async () => {
+    const loadSurveyResultSpy = new LoadSurveyResultSpy();
+    jest.spyOn(loadSurveyResultSpy, 'load').mockRejectedValueOnce(new UnexpectedError());
+
+    makeSut(loadSurveyResultSpy);
+
+    await waitFor(() => screen.getByTestId('error'));
+    fireEvent.click(screen.getByTestId('reload'));
+
+    expect(loadSurveyResultSpy.callsCount).toBe(1);
+
+    if (!screen.queryByTestId('survey-result')) {
+      await waitFor(() => screen.getByTestId('error'));
+    } else {
+      await waitFor(() => screen.getByTestId('survey-result'));
+    }
   });
 });

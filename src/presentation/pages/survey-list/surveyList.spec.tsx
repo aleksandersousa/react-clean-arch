@@ -30,7 +30,7 @@ const makeSut = (loadSurveyListSpy = new LoadSurveyListSpy()): SutTypes => {
 };
 
 describe('SurveyList Component', () => {
-  test('should present 4 empty items on start', async () => {
+  test('Should present 4 empty items on start', async () => {
     makeSut();
 
     const surveyList = screen.getByTestId('survey-list');
@@ -41,14 +41,14 @@ describe('SurveyList Component', () => {
     await waitFor(() => surveyList);
   });
 
-  test('should call LoadSurveyList', async () => {
+  test('Should call LoadSurveyList', async () => {
     const { loadSurveyListSpy } = makeSut();
     expect(loadSurveyListSpy.callsCount).toBe(1);
 
     await waitFor(() => screen.getByRole('heading'));
   });
 
-  test('should render SurveyItems on success', async () => {
+  test('Should render SurveyItems on success', async () => {
     const { loadSurveyListSpy } = makeSut();
     const surveyList = screen.getByTestId('survey-list');
 
@@ -60,7 +60,7 @@ describe('SurveyList Component', () => {
     expect(screen.queryByTestId('error')).not.toBeInTheDocument();
   });
 
-  test('should render error on UnexpectedError', async () => {
+  test('Should render error on UnexpectedError', async () => {
     const error = new UnexpectedError();
     const loadSurveyListSpy = new LoadSurveyListSpy();
     jest.spyOn(loadSurveyListSpy, 'loadAll').mockRejectedValueOnce(error);
@@ -73,7 +73,7 @@ describe('SurveyList Component', () => {
     expect(screen.getByTestId('error')).toHaveTextContent(error.message);
   });
 
-  test('should logout on access denied', async () => {
+  test('Should logout on access denied', async () => {
     const loadSurveyListSpy = new LoadSurveyListSpy();
     jest
       .spyOn(loadSurveyListSpy, 'loadAll')
@@ -87,7 +87,7 @@ describe('SurveyList Component', () => {
     expect(window.location.pathname).toBe('/login');
   });
 
-  test('should call LoadSurveyList on reload', async () => {
+  test('Should call LoadSurveyList on reload', async () => {
     const loadSurveyListSpy = new LoadSurveyListSpy();
     jest.spyOn(loadSurveyListSpy, 'loadAll').mockRejectedValueOnce(new UnexpectedError());
 
