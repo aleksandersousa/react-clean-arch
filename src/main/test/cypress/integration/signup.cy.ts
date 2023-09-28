@@ -111,7 +111,7 @@ describe('Signup', () => {
     mockSuccess();
 
     populateFormFields();
-    cy.getByTestId('submit').dblclick();
+    cy.getByTestId('submit').click();
 
     cy.wait('@signUpRequest');
 

@@ -92,7 +92,7 @@ describe('Login', () => {
     mockSuccess();
 
     populateFormFields();
-    cy.getByTestId('submit').dblclick();
+    cy.getByTestId('submit').click();
 
     cy.wait('@loginRequest');
 
