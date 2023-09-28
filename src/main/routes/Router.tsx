@@ -7,6 +7,7 @@ import {
   setCurrentAccountAdapter,
 } from '@/main/adapters/current-account-adapter';
 import { PrivateRoute } from '@/presentation/components';
+import { SurveyResult } from '@/presentation/pages';
 
 const Router: React.FC = () => (
   <ApiContext.Provider
@@ -22,6 +23,7 @@ const Router: React.FC = () => (
 
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<MakeSurveyList />} />
+          <Route path="/surveys" element={<SurveyResult />} />
         </Route>
       </Routes>
     </BrowserRouter>
