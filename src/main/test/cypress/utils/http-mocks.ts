@@ -13,7 +13,7 @@ export const mockUnauthorizedError = (url: RegExp): void => {
       body: {
         error: faker.word.words(),
       },
-    }
+    },
   ).as('request');
 };
 
@@ -28,7 +28,7 @@ export const mockServerError = (url: RegExp, method: Methods): void => {
       body: {
         error: faker.word.words(),
       },
-    }
+    },
   ).as('request');
 };
 
@@ -43,7 +43,7 @@ export const mockForbiddenError = (url: RegExp, method: Methods): void => {
       body: {
         error: faker.word.words(),
       },
-    }
+    },
   ).as('request');
 };
 
@@ -51,7 +51,7 @@ export const mockOK = (
   url: RegExp,
   method: Methods,
   fixture: any,
-  alias = 'request'
+  alias = 'request',
 ): void => {
   cy.intercept(
     {
@@ -61,6 +61,6 @@ export const mockOK = (
     {
       statusCode: 200,
       fixture,
-    }
+    },
   ).as(alias);
 };

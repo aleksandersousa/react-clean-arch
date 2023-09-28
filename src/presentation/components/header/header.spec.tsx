@@ -25,7 +25,7 @@ const makeSut = (account = mockAccountModel()): SutTypes => {
       <BrowserRouter>
         <Header />
       </BrowserRouter>
-    </ApiContext.Provider>
+    </ApiContext.Provider>,
   );
 
   return { setCurrentAccountMock };

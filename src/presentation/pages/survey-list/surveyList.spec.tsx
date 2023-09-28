@@ -24,7 +24,7 @@ const makeSut = (loadSurveyListSpy = new LoadSurveyListSpy()): SutTypes => {
       <BrowserRouter>
         <SurveyList loadSurveyList={loadSurveyListSpy} />
       </BrowserRouter>
-    </ApiContext.Provider>
+    </ApiContext.Provider>,
   );
   return { loadSurveyListSpy, setCurrentAccountMock };
 };
@@ -55,7 +55,7 @@ describe('SurveyList Component', () => {
     await waitFor(() => surveyList);
 
     expect(surveyList.querySelectorAll('li.surveyItemWrap')).toHaveLength(
-      loadSurveyListSpy.surveys.length
+      loadSurveyListSpy.surveys.length,
     );
     expect(screen.queryByTestId('error')).not.toBeInTheDocument();
   });

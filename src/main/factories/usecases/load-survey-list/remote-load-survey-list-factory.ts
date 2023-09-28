@@ -5,7 +5,7 @@ import { makeAuthorizeHttpGetClientDecorator } from '@/main/factories/decorators
 export const makeRemoteLoadSurveyList = () => {
   const remoteLoadSurveyList = new RemoteLoadSurveyList(
     makeApiUrl('/surveys'),
-    makeAuthorizeHttpGetClientDecorator()
+    makeAuthorizeHttpGetClientDecorator(),
   );
 
   return remoteLoadSurveyList;

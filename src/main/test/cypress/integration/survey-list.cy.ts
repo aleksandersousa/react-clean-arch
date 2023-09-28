@@ -21,7 +21,7 @@ describe('SurveyList', () => {
 
     cy.getByTestId('error').should(
       'contain.text',
-      'Algo de inesperado aconteceu. Tente novamente em breve.'
+      'Algo de inesperado aconteceu. Tente novamente em breve.',
     );
   });
 
@@ -31,7 +31,7 @@ describe('SurveyList', () => {
 
     cy.getByTestId('error').should(
       'contain.text',
-      'Algo de inesperado aconteceu. Tente novamente em breve.'
+      'Algo de inesperado aconteceu. Tente novamente em breve.',
     );
 
     mockSuccess();

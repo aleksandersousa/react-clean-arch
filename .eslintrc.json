@@ -100,6 +100,7 @@
       "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
       "arrow-parens": "off",
       "new-cap": "off",
+      "comma-dangle": "off",
       "func-names": "off",
       "prettier/prettier": "error"
     },

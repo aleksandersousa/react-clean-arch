@@ -20,7 +20,7 @@ describe('SignupValidationFactory', () => {
         new MinLengthValidation('password', 5),
         new RequiredFieldValidation('passwordConfirmation'),
         new CompareFieldsValidation('passwordConfirmation', 'password'),
-      ])
+      ]),
     );
   });
 });

@@ -4,7 +4,7 @@ import { HttpGetClient, HttpGetParams, HttpResponse } from '@/data/protocols/htt
 export class AuthorizeHttpGetClientDecorator implements HttpGetClient {
   constructor(
     private readonly getStorage: GetStorage,
-    private readonly httpGetClient: HttpGetClient
+    private readonly httpGetClient: HttpGetClient,
   ) {}
 
   get = async (params: HttpGetParams): Promise<HttpResponse> => {

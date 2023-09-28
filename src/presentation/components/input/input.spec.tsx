@@ -7,7 +7,7 @@ const makeSut = (fieldName: string): RenderResult =>
   render(
     <FormContext.Provider value={{ state: {} }}>
       <Input name={fieldName} />
-    </FormContext.Provider>
+    </FormContext.Provider>,
   );
 
 describe('InputComponent', () => {

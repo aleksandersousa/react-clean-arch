@@ -6,7 +6,7 @@ import { LoadSurveyList } from '@/domain/usecases/load-survey-list';
 export class RemoteLoadSurveyList implements LoadSurveyList {
   constructor(
     private readonly url: string,
-    private readonly httpGetClient: HttpGetClient<SurveyModel[]>
+    private readonly httpGetClient: HttpGetClient<SurveyModel[]>,
   ) {}
 
   async loadAll(): Promise<SurveyModel[]> {

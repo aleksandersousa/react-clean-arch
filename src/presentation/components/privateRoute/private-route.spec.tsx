@@ -19,7 +19,7 @@ const makeSut = (account = mockAccountModel()): void => {
           </Route>
         </Routes>
       </BrowserRouter>
-    </ApiContext.Provider>
+    </ApiContext.Provider>,
   );
 };
 

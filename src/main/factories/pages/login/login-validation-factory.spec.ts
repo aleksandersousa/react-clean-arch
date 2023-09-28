@@ -15,7 +15,7 @@ describe('LoginValidationFactory', () => {
         new EmailValidation('email'),
         new RequiredFieldValidation('password'),
         new MinLengthValidation('password', 5),
-      ])
+      ]),
     );
   });
 });

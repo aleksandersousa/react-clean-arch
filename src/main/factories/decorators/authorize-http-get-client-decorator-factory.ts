@@ -6,7 +6,7 @@ import { makeAxiosHttpClient } from '@/main/factories/htpp';
 export const makeAuthorizeHttpGetClientDecorator = (): HttpGetClient => {
   const decorator = new AuthorizeHttpGetClientDecorator(
     makeLocalStorageAdapter(),
-    makeAxiosHttpClient()
+    makeAxiosHttpClient(),
   );
 
   return decorator;

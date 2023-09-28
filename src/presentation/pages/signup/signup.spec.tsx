@@ -28,7 +28,7 @@ const makeSut = (params?: SutParams): SutTypes => {
       <BrowserRouter>
         <Signup validation={validationStub} addAccount={addAccountSpy} />
       </BrowserRouter>
-    </ApiContext.Provider>
+    </ApiContext.Provider>,
   );
 
   return { addAccountSpy, setCurrentAccountMock };
@@ -37,7 +37,7 @@ const makeSut = (params?: SutParams): SutTypes => {
 const simulateValidSubmit = async (
   name = faker.person.firstName(),
   email = faker.internet.email(),
-  password = faker.internet.password()
+  password = faker.internet.password(),
 ): Promise<void> => {
   Helper.populateField('name', name);
   Helper.populateField('email', email);
