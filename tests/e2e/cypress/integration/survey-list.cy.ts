@@ -66,8 +66,9 @@ describe('SurveyList', () => {
     mockSuccess();
     cy.visit('');
 
-    cy.get('li:empty').should('have.length', 4);
-    cy.get('li:not(:empty)').should('have.length', 2);
+    cy.get('li').should('have.length', 4);
+    cy.get('li').should('have.length', 2);
+
     cy.get('li:nth-child(1)').then(li => {
       assert.equal(li.find('[data-testid="day"]').text(), '03');
       assert.equal(li.find('[data-testid="month"]').text(), 'fev');
