@@ -3,7 +3,7 @@ import { SurveyResultModel } from '@/domain/models';
 import { faker } from '@faker-js/faker';
 import { mockSaveSurveyResultParams } from '@/domain/test/mock-save-survey-result';
 import { HttpStatusCode } from '@/data/protocols/http';
-import { AccessDeniedError } from '@/domain/errors';
+import { AccessDeniedError, UnexpectedError } from '@/domain/errors';
 import { RemoteSaveSurveyResult } from './remote-save-survey-result';
 
 type SutTypes = {
@@ -42,16 +42,16 @@ describe('RemoteLoadSurveyResult', () => {
     await expect(promise).rejects.toThrow(new AccessDeniedError());
   });
 
-  // test('Should throw UnexpectedError if HTTPClient returns 404', async () => {
-  //   const { sut, httpClientSpy } = makeSut();
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.notFound,
-  //   };
+  test('Should throw UnexpectedError if HTTPClient returns 404', async () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
 
-  //   const promise = sut.save();
+    const promise = sut.save(mockSaveSurveyResultParams());
 
-  //   await expect(promise).rejects.toThrow(new UnexpectedError());
-  // });
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
 
   // test('Should throw UnexpectedError if HTTPClient returns 500', async () => {
   //   const { sut, httpClientSpy } = makeSut();
