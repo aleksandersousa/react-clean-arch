@@ -1,16 +1,16 @@
 {
-  "question": "Pergunta",
+  "question": "Question",
   "date": "2018-02-03T00:00:00",
   "answers": [
     {
       "image": "http://image.com",
-      "answer": "Resposta 1",
+      "answer": "Answer 1",
       "count": 2,
       "percent": 70,
       "isCurrentAccountAnswer": true
     },
     {
-      "answer": "Resposta 2",
+      "answer": "Answer 2",
       "count": 1,
       "percent": 30,
       "isCurrentAccountAnswer": false
