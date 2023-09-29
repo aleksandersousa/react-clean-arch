@@ -207,4 +207,23 @@ describe('SurveyResult Component', () => {
     expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
     expect(screen.getByTestId('error')).toHaveTextContent(error.message);
   });
+
+  test('Should logout on AccessDeniedError in SaveSurveyResult', async () => {
+    const saveSurveyResultSpy = new SaveSurveyResultSpy();
+    jest
+      .spyOn(saveSurveyResultSpy, 'save')
+      .mockRejectedValueOnce(new AccessDeniedError());
+
+    const { setCurrentAccountMock } = makeSut({ saveSurveyResultSpy });
+
+    await waitFor(() => screen.getByTestId('survey-result'));
+
+    const answersWrap = screen.queryAllByTestId('answer-wrap');
+    fireEvent.click(answersWrap[1]);
+
+    await waitFor(() => screen.getByTestId('survey-result'));
+
+    expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined);
+    expect(window.location.pathname).toBe('/login');
+  });
 });
