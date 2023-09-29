@@ -12,7 +12,7 @@ export class RemoteSaveSurveyResult implements SaveSurveyResult {
   async save(data: SaveSurveyResultParams): Promise<SurveyResultModel> {
     const httpResponse = await this.httpClient.request({
       url: this.url,
-      method: 'get',
+      method: 'put',
       body: data,
     });
     const surveyResult = httpResponse.body;

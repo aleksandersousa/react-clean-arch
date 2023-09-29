@@ -27,7 +27,7 @@ describe('RemoteLoadSurveyResult', () => {
     await sut.save(saveSurveyResultParams);
 
     expect(httpClientSpy.url).toBe(url);
-    expect(httpClientSpy.method).toBe('get');
+    expect(httpClientSpy.method).toBe('put');
     expect(httpClientSpy.body).toEqual(saveSurveyResultParams);
   });
 
