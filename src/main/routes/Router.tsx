@@ -7,10 +7,7 @@ import {
   MakeSurveyResult,
 } from '@/main/factories/pages';
 import { ApiContext } from '@/presentation/contexts';
-import {
-  getCurrentAccountAdapter,
-  setCurrentAccountAdapter,
-} from '@/main/adapters/current-account-adapter';
+import { getCurrentAccountAdapter, setCurrentAccountAdapter } from '@/main/adapters';
 import { PrivateRoute } from '@/presentation/components';
 
 const Router: React.FC = () => (

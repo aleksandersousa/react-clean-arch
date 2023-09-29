@@ -1,12 +1,4 @@
 {
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "src/main/test/cypress",
-    "./cypress.config.ts"
-  ],
   "compilerOptions": {
     "target": "ES6",
     "useDefineForClassFields": true,
@@ -23,10 +15,12 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
+    "rootDirs": ["src", "tests"],
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@/*": ["*"],
+      "@/tests/*": ["../tests/*"]
     }
   },
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["tests/e2e/cypress", "./cypress.config.ts"]
 }

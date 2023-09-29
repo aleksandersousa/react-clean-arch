@@ -6,7 +6,7 @@ import {
   PublicHeader,
   SubmitButton,
 } from '@/presentation/components';
-import { Validation } from '@/presentation/protocols/validation';
+import { Validation } from '@/presentation/protocols';
 import { Authentication } from '@/domain/usecases';
 import { Link, useNavigate } from 'react-router-dom';
 import { ApiContext, FormContext } from '@/presentation/contexts';

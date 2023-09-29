@@ -8,7 +8,7 @@ import {
 } from '@/presentation/components';
 import { ApiContext, FormContext } from '@/presentation/contexts';
 import { Link, useNavigate } from 'react-router-dom';
-import { Validation } from '@/presentation/protocols/validation';
+import { Validation } from '@/presentation/protocols';
 import { AddAccount } from '@/domain/usecases';
 import Styles from './styles.scss';
 
