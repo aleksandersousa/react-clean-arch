@@ -106,7 +106,7 @@ describe('SurveyResult Component', () => {
     expect(percents[1]).toHaveTextContent(`${surveyResult.answers[1].percent}%`);
   });
 
-  test('Should render error on UnexpectedError', async () => {
+  test('Should render error on UnexpectedError in LoadSurveyResult', async () => {
     const error = new UnexpectedError();
     const loadSurveyResultSpy = new LoadSurveyResultSpy();
     jest.spyOn(loadSurveyResultSpy, 'load').mockRejectedValueOnce(error);
@@ -187,5 +187,24 @@ describe('SurveyResult Component', () => {
     expect(saveSurveyResultSpy.params).toEqual({
       answer: loadSurveyResultSpy.surveyResult.answers[1].answer,
     });
+  });
+
+  test('Should render error on UnexpectedError in SaveSurveyResult', async () => {
+    const error = new UnexpectedError();
+    const saveSurveyResultSpy = new SaveSurveyResultSpy();
+    jest.spyOn(saveSurveyResultSpy, 'save').mockRejectedValueOnce(error);
+
+    makeSut({ saveSurveyResultSpy });
+
+    await waitFor(() => screen.getByTestId('survey-result'));
+
+    const answersWrap = screen.queryAllByTestId('answer-wrap');
+    fireEvent.click(answersWrap[1]);
+
+    await waitFor(() => screen.getByTestId('error'));
+
+    expect(screen.queryByTestId('question')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
+    expect(screen.getByTestId('error')).toHaveTextContent(error.message);
   });
 });
