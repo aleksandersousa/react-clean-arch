@@ -1,4 +1,4 @@
-import { HttpClientSpy } from '@/data/test';
+import { HttpClientSpy, mockRemoteSurveyResultModel } from '@/data/test';
 import { SurveyResultModel } from '@/domain/models';
 import { faker } from '@faker-js/faker';
 import { mockSaveSurveyResultParams } from '@/domain/test/mock-save-survey-result';
@@ -64,21 +64,21 @@ describe('RemoteLoadSurveyResult', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
-  // test('Should return a SurveyResultModel if HTTPClient returns 200', async () => {
-  //   const { sut, httpClientSpy } = makeSut();
-  //   const httpResult = mockRemoteSurveyResultModel();
+  test('Should return a SurveyResultModel if HTTPClient returns 200', async () => {
+    const { sut, httpClientSpy } = makeSut();
+    const httpResult = mockRemoteSurveyResultModel();
 
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.ok,
-  //     body: httpResult,
-  //   };
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult,
+    };
 
-  //   const surveyResult = await sut.save();
+    const surveyResult = await sut.save(mockSaveSurveyResultParams());
 
-  //   expect(surveyResult).toEqual({
-  //     question: httpResult.question,
-  //     answers: httpResult.answers,
-  //     date: new Date(httpResult.date),
-  //   });
-  // });
+    expect(surveyResult).toEqual({
+      question: httpResult.question,
+      answers: httpResult.answers,
+      date: new Date(httpResult.date),
+    });
+  });
 });
