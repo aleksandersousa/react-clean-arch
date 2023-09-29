@@ -1,11 +1,11 @@
 import * as Helper from '../utils/helpers';
 import * as Http from '../utils/http-mocks';
 
-// const { baseUrl } = Cypress.config();
+const { baseUrl } = Cypress.config();
 
 const path = /surveys/;
 const mockUnexpectedError = (): void => Http.mockServerError(path, 'GET');
-// const mockAccessDeniedError = (): void => Http.mockForbiddenError(path, 'GET');
+const mockAccessDeniedError = (): void => Http.mockForbiddenError(path, 'GET');
 const mockSuccess = (): void => Http.mockOK(path, 'GET', 'survey-result');
 
 describe('SurveyResult', () => {
@@ -37,5 +37,12 @@ describe('SurveyResult', () => {
     mockSuccess();
     cy.getByTestId('reload').click();
     cy.getByTestId('question').should('exist');
+  });
+
+  it('Should logout on AccessDeniedError', () => {
+    cy.visit('/surveys/any_id');
+    mockAccessDeniedError();
+
+    cy.url().should('eq', `${baseUrl as string}/login`);
   });
 });
