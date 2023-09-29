@@ -3,7 +3,7 @@ import { SurveyResultModel } from '@/domain/models';
 import { faker } from '@faker-js/faker';
 import { HttpStatusCode } from '@/data/protocols/http';
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors';
-import { RemoteLoadSurveyResult } from './remote-load-survey-resul';
+import { RemoteLoadSurveyResult } from './remote-load-survey-result';
 
 type SutTypes = {
   sut: RemoteLoadSurveyResult;
