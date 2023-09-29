@@ -1,7 +1,7 @@
 import { HttpClientSpy, mockRemoteSurveyResultModel } from '@/data/test';
 import { SurveyResultModel } from '@/domain/models';
 import { faker } from '@faker-js/faker';
-import { mockSaveSurveyResultParams } from '@/domain/test/mock-save-survey-result';
+import { mockSaveSurveyResultParams } from '@/domain/test';
 import { HttpStatusCode } from '@/data/protocols/http';
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors';
 import { RemoteSaveSurveyResult } from './remote-save-survey-result';
