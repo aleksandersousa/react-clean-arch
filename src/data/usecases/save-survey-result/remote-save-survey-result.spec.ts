@@ -53,16 +53,16 @@ describe('RemoteLoadSurveyResult', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
-  // test('Should throw UnexpectedError if HTTPClient returns 500', async () => {
-  //   const { sut, httpClientSpy } = makeSut();
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.serverError,
-  //   };
+  test('Should throw UnexpectedError if HTTPClient returns 500', async () => {
+    const { sut, httpClientSpy } = makeSut();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.serverError,
+    };
 
-  //   const promise = sut.save();
+    const promise = sut.save(mockSaveSurveyResultParams());
 
-  //   await expect(promise).rejects.toThrow(new UnexpectedError());
-  // });
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
 
   // test('Should return a SurveyResultModel if HTTPClient returns 200', async () => {
   //   const { sut, httpClientSpy } = makeSut();
